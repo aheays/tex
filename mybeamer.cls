@@ -13,6 +13,7 @@
 % \usetheme{Darmstadt}
 % \usetheme{Frankfurt}
 \usetheme{Luebeck}
+% \usetheme{Median}
 \setbeamercovered{invisible}
 \setbeamertemplate{items}[rectangles] %ball
 \setbeamertemplate{theorems}[numbered]
@@ -22,11 +23,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %% load other packages %%
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\graphicspath{{.}{./figures/}{/home/heays/src/tex/system_wide_graphics/}}
-\usepackage[T1]{fontenc}                 % good practice I believe
-% \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry} % Reduce the size of the margin
+%% default path to figures
+\graphicspath{{.}{./figures/}{/home/heays/src/tex/system_wide_graphics/}{/home/heays/refs/}}
+%%%%%%%%%%%
+%% fonts %%
+%%%%%%%%%%%
+% \usepackage{fontspec} \setmainfont[Mapping=tex-text]{Droid Sans Fallback}
+% \usepackage{fontspec} \setmainfont[Mapping=tex-text]{Helvetica Sans}
+% \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
+\usepackage{fontspec}\setmainfont[Mapping=tex-text]{Bitstream Charter}
+% \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Arial}
+% \usepackage[T1]{fontenc}                 % good practice I believe
+% % \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry} % Reduce the size of the margin
 \usepackage{my}
-\usepackage{helvet}
+% \usepackage{helvet}
 %%%%%%%%%%%%%%%
 %% biblatex  %%
 %%%%%%%%%%%%%%%
