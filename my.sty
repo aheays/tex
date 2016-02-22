@@ -73,9 +73,15 @@
   \ifstrequal{#1}{N(4S)}{\def\myretval{\ce{N({}^4$S$)}}}{}%
   \ifstrequal{#1}{N(2D)}{\def\myretval{\ce{N({}^2$D$)}}}{}%
   \ifstrequal{#1}{N(2P)}{\def\myretval{\ce{N({}^2$P$)}}}{}%
-  %% N2 isotopologues and states
+  %% S isotopes
+  \ifstrequal{#1}{32S}{\def\myretval{\ce{{}^{32}S}}}{}%
+  \ifstrequal{#1}{33S}{\def\myretval{\ce{{}^{33}S}}}{}%
+  \ifstrequal{#1}{34S}{\def\myretval{\ce{{}^{34}S}}}{}%
+  \ifstrequal{#1}{36S}{\def\myretval{\ce{{}^{36}S}}}{}%
+  %% N isotopes
   \ifstrequal{#1}{14N}{\def\myretval{\ce{{}^{14}N}}}{}%
   \ifstrequal{#1}{15N}{\def\myretval{\ce{{}^{15}N}}}{}%
+  %% N2 isotopologues and states
   \ifstrequal{#1}{N2}{\def\myretval{\ce{N_2}}}{}%
   \ifstrequal{#1}{N2+}{\def\myretval{\ce{N_2^+}}}{}%
   \ifstrequal{#1}{14N2}{\def\myretval{\ce{{}^{14}N_2}}}{}%
@@ -111,8 +117,11 @@
   \ifstrequal{#1}{N2Gn}{\def\myretval{\mymath{G_n\,^3\Pi_u}}}{}%
   \ifstrequal{#1}{N22}{\def\myretval{\mymath{2\,^3\Sigma^+_u}}}{}%
   \ifstrequal{#1}{COX}{\def\myretval{\mymath{X{}^1\Sigma^+}}}{}%
+  \ifstrequal{#1}{COa}{\def\myretval{\mymath{a{}^3\Pi}}}{}%
   \ifstrequal{#1}{COW}{\def\myretval{\mymath{W{}^1\Pi}}}{}%
   \ifstrequal{#1}{COB}{\def\myretval{\mymath{B{}^1\Sigma^+}}}{}%
+  \ifstrequal{#1}{COC}{\def\myretval{\mymath{C{}^1\Sigma^+}}}{}%
+  \ifstrequal{#1}{COE}{\def\myretval{\mymath{C{}^1\Pi}}}{}%
   \ifstrequal{#1}{COEp}{\def\myretval{\mymath{E'{}^1\Pi}}}{}%
   \ifstrequal{#1}{COEpp}{\def\myretval{\mymath{E''{}^1\Pi}}}{}%
   \ifstrequal{#1}{CO+A}{\def\myretval{\mymath{A{}^2\Pi}}}{}%
