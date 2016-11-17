@@ -12,8 +12,8 @@
 % \usetheme{Copenhagen}
 % \usetheme{Darmstadt}
 % \usetheme{Frankfurt}
-\usetheme{Luebeck}
-% \usetheme{Median}
+% \usetheme{Luebeck
+\usetheme{metropolis}
 \setbeamercovered{invisible}
 \setbeamertemplate{items}[rectangles] %ball
 \setbeamertemplate{theorems}[numbered]
@@ -73,7 +73,7 @@
 %% custom commands %%
 %%%%%%%%%%%%%%%%%%%%%
 \newrobustcmd{\myfullcite}[1]{\scriptsize\fullcite{#1}}
-\newrobustcmd{\myfigurecite}[1]{{\hfill\footnotesize\textit{\textcite{#1}}}\\}
+\newrobustcmd{\myfigcite}[1]{\\\hfill{\footnotesize\textcite{#1}}\\}
 %% use text block to define a way to absolutely place things using:
 %% \myabsolute{width}{horizontal placement}{vertical placement}{content}.
 %% Coordinates are from top left of page and in
