@@ -1,10 +1,21 @@
 %% 
 \usepackage{etoolbox}           % includes newrobustcmd
 \usepackage{graphicx}           % includegraphics
-\usepackage{xspace}		% fix missing space after command names
+\usepackage{xspace}             % fix missing space after command names
 \usepackage{amsmath}            % math fonts and macros
 \usepackage{amssymb}            % math symbols
+%% 
+%% mhchem
 \usepackage[version=3]{mhchem}  % \ce{...} for chem equations
+%% define environments reaction and reaction* for numbered and
+%% non-numbered reactions
+\makeatletter
+\newcommand\myreaction@[1]{\begin{equation}\ce{#1}\end{equation}}
+\newcommand\myreaction@nonumber[1]%
+{\begin{equation*}\ce{#1}\end{equation*}}
+\newcommand\myreaction{\@ifstar{\myreaction@nonumber}{\myreaction@}}
+\makeatother
+%% 
 \usepackage{mathrsfs}           % provides \mathscr
 \usepackage{rotating}           % for sideways tables/figures
 \usepackage{verbatim}
@@ -35,7 +46,21 @@
 %% to explicitly set margins
 \usepackage{geometry}
 % \geometry{body={6.5in, 9.0in}, left=1.0in, top=1.0in}
-
+%% convenient command for centred figure
+\newrobustcmd{\myfigure}[2]{%
+  \begin{figure}%
+    \centering%
+    \includegraphics{#1}%
+    \caption{#2 \label{fig:#1}}%
+  \end{figure}%
+}
+\newrobustcmd{\myfiguretwocolumn}[3]{%
+  \begin{figure*}%
+    \centering%
+    \includegraphics{#1}%
+    \caption{#2 \label{#3}}%
+  \end{figure*}%
+}
 %%%%%%%%%%%%%%%%%%%%%
 %% commands I like %%
 %%%%%%%%%%%%%%%%%%%%%
@@ -129,6 +154,19 @@
   \ifstrequal{#1}{COEpp}{\def\myretval{\ensuremath{E''{}^1\Pi}}}{}%
   \ifstrequal{#1}{COe}{\def\myretval{\ensuremath{e{}^3\Sigma^-}}}{}%
   \ifstrequal{#1}{CO+A}{\def\myretval{\ensuremath{A{}^2\Pi}}}{}%
+  \ifstrequal{#1}{OHX}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{OHA}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{OHD}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{ODX}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{ODA}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{ODD}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{OH_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{OH_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{OH_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{OD_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{OD_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{OD_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{CNX}{\def\myretval{\ensuremath{X\,{}^2\Sigma^+}}}{}%
   %% symmetry symbols
   \ifstrequal{#1}{1Pi}{\def\myretval{\ensuremath{{}^1\Pi}}}{}%
   \ifstrequal{#1}{2Pi}{\def\myretval{\ensuremath{{}^2\Pi}}}{}%
@@ -143,7 +181,8 @@
   \ifstrequal{#1}{3PiuOmega2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
   % \ifstrequal{#1}{1Sigmau+}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
   % \ifstrequal{#1}{3Sigmau+}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{1Sigma+u}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
+  \ifstrequal{#1}{1Sigma+u}{\def\myretval{\ensuremath{{}^1\Sigma^+_u}}}{}%
+  \ifstrequal{#1}{1Sigma+g}{\def\myretval{\ensuremath{{}^1\Sigma^+_g}}}{}%
   \ifstrequal{#1}{1Sigma+ue}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
   \ifstrequal{#1}{1Sigma+u0e}{\def\myretval{\ensuremath{{}^1\Sigma^+_{ue}}}}{}%
   \ifstrequal{#1}{1Sigma}{\def\myretval{\ensuremath{{}^1\Sigma}}}{}%
@@ -151,6 +190,8 @@
   \ifstrequal{#1}{1Sigma-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
   \ifstrequal{#1}{3Sigma+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
   \ifstrequal{#1}{3Sigma-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
+  \ifstrequal{#1}{4Sigma+}{\def\myretval{\ensuremath{{}^4\Sigma^+}}}{}%
+  \ifstrequal{#1}{4Sigma-}{\def\myretval{\ensuremath{{}^4\Sigma^-}}}{}%
   \ifstrequal{#1}{2Sigma}{\def\myretval{\ensuremath{{}^2\Sigma}}}{}%
   \ifstrequal{#1}{2Sigma+}{\def\myretval{\ensuremath{{}^2\Sigma^+}}}{}%
   \ifstrequal{#1}{2Sigma-}{\def\myretval{\ensuremath{{}^2\Sigma^-}}}{}%
@@ -162,7 +203,9 @@
   \ifstrequal{#1}{3Sigma+u1f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1f}}}}{}%
   \ifstrequal{#1}{1Sigma+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
   \ifstrequal{#1}{1Delta}{\def\myretval{\ensuremath{{}^1\Delta}}}{}%
+  \ifstrequal{#1}{2Delta}{\def\myretval{\ensuremath{{}^2\Delta}}}{}%
   \ifstrequal{#1}{3Delta}{\def\myretval{\ensuremath{{}^3\Delta}}}{}%
+  \ifstrequal{#1}{4Delta}{\def\myretval{\ensuremath{{}^4\Delta}}}{}%
 %% atom states
   \ifstrequal{#1}{C1D}{\def\myretval{\ensuremath{\ce{C}({}^1D)}}}{}%
   \ifstrequal{#1}{C3P}{\def\myretval{\ensuremath{\ce{C}({}^3P)}}}{}%
@@ -198,12 +241,13 @@
 \newrobustcmd{\mymb}[1]{\numprint[mb]{#1}\xspace}
 \newrobustcmd{\mydegree}[1]{\ensuremath{#1^\circ}} % degree symbol
 %% complex math operators with arguments
-\newrobustcmd{\mybra}[1]{\langle #1 \vert}
-\newrobustcmd{\myket}[1]{\vert #1 \rangle}
-\newrobustcmd{\mybraket}[2]{\langle #1 \vert #2 \rangle}
+\newrobustcmd{\mybra}[1]{\ensuremath{\langle #1 \vert}}
+\newrobustcmd{\myket}[1]{\ensuremath{\vert #1 \rangle}}
+\newrobustcmd{\mybraket}[2]{\ensuremath{\langle #1 \vert #2 \rangle}}
 \newrobustcmd{\mybraopket}[3]{\ensuremath{\langle #1 \vert #2 \vert #3 \rangle}}
 %% astronomy macros
-\newrobustcmd{\myAV}{\ensuremath{A_\text{V}}}
+\newrobustcmd{\myAV}{\ensuremath{A_\text{V}}\xspace}
+\newrobustcmd{\mynH}{\ensuremath{n_\text{H}}\xspace}
 
                                 % \newrobustcmd{\simpropto}{\ensuremath{\shortstack{\hspace{0.5ex}\propto\hspace{0.5ex}\vspace{-0.5ex}\\\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}}}}
 \newrobustcmd{\mysimpropto}{\shortstack{$\hspace{0.5ex}\propto\hspace{0.5ex}\vspace{-0.5ex}$\\$\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}$}}
