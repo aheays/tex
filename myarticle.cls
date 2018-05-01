@@ -9,7 +9,7 @@
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry} % Reduce the size of the margin
 \usepackage{my}
 %% default path to figures
-\graphicspath{{.}{./figures/}{/home/heays/src/tex/system_wide_graphics/}{/home/heays/refs/}}
+\graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
 %% biblatex 
 \usepackage[%
 backend=bibtex,sorting=none,style=numeric-comp,%
