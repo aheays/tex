@@ -11,14 +11,14 @@
 %% default path to figures
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
 %% biblatex 
-\usepackage[%
-backend=bibtex,sorting=none,style=numeric-comp,%
-autocite=superscript,natbib=true,%
-firstinits,maxcitenames=1,maxbibnames=1%
-]{biblatex}
-\let\cite\autocite              %removes the ability for a plain cite, but nevermind
-\addbibresource{/home/heays/refs/anhrefs.bib} %where I normally keep references
-\addbibresource{article.bib}                  %sometimes also locally with this name
+% % \usepackage[%
+% backend=bibtex,sorting=none,style=numeric-comp,%
+% autocite=superscript,natbib=true,%
+% firstinits,maxcitenames=1,maxbibnames=1%
+% ]{biblatex}
+% \let\cite\autocite              %removes the ability for a plain cite, but nevermind
+% \addbibresource{/home/heays/refs/anhrefs.bib} %where I normally keep references
+% \addbibresource{article.bib}                  %sometimes also locally with this name
 %% custom bib style for article
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 \DeclareFieldFormat{journaltitle}{#1}     %not italic
