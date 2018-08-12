@@ -1,9 +1,9 @@
-%% 
 \usepackage{etoolbox}           % includes newrobustcmd
 \usepackage{graphicx}           % includegraphics
 \usepackage{xspace}             % fix missing space after command names
 \usepackage{amsmath}            % math fonts and macros
 \usepackage{amssymb}            % math symbols
+\usepackage{unicode-math}
 %% 
 %% mhchem
 \usepackage[version=3]{mhchem}  % \ce{...} for chem equations
@@ -16,10 +16,10 @@
 \newcommand\myreaction{\@ifstar{\myreaction@nonumber}{\myreaction@}}
 \makeatother
 %% 
-\usepackage{mathrsfs}           % provides \mathscr
+% \usepackage{mathrsfs}           % provides \mathscr
 \usepackage{rotating}           % for sideways tables/figures
 \usepackage{verbatim}
-\usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
+% \usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
 %% \usepackage[square,sort,numbers]{natbib} %use natbib \citet textual citation, \citep for paranthetical citation, options: square brackets, sort by number, cite number rather than author for \citep
 %% \usepackage[square,sort&compress,numbers]{natbib} %use natbib \citet textual citation, \citep for paranthetical citation, options: square brackets, sort by number, cite number rather than author for \citep
 \usepackage[warning,np]{numprint}
@@ -29,7 +29,7 @@
 \npfourdigitnosep
 \usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} % multipage tables, might need to adjust caption width
 %% \usepackage{lscape}             % allow \begin{landscape}...\end{landscape} for tables and things - perhaps better to use 'rotating' instead
-\usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
+% \usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
 \usepackage{url}                %\url{...} formatting
 %%\usepackage{bibentry} \nobibliography*
 %% \usepackage{dcolumn} %align on decimal dot in tables ie position specifier D{.}{.}{2}, enforces math mode for cell contents!!!
@@ -68,6 +68,8 @@
 \newrobustcmd{\mymc}[1]{\multicolumn{1}{c}{#1}} 
 %% use math roman font
 \newrobustcmd{\mychem}[1]{\ensuremath{\mathrm{#1}}}
+%% make match and text bold
+\newrobustcmd{\mybf}[1]{\textbf{\boldmath{}#1}}
 %% spacing etc
 % \newrobustcmd{\mymath}[1]{\ensuremath{#1}}
 %% comments
@@ -108,6 +110,19 @@
   %% N isotopes
   \ifstrequal{#1}{14N}{\def\myretval{\ce{{}^{14}N}}}{}%
   \ifstrequal{#1}{15N}{\def\myretval{\ce{{}^{15}N}}}{}%
+  %% SO isotopologues
+  \ifstrequal{#1}{32S16O}{\def\myretval{\ce{{}^{32}S {}^{16}O}}}{}%
+  \ifstrequal{#1}{33S16O}{\def\myretval{\ce{{}^{33}S {}^{16}O}}}{}%
+  \ifstrequal{#1}{34S16O}{\def\myretval{\ce{{}^{34}S {}^{16}O}}}{}%
+  \ifstrequal{#1}{36S16O}{\def\myretval{\ce{{}^{36}S {}^{16}O}}}{}%
+  \ifstrequal{#1}{32S17O}{\def\myretval{\ce{{}^{32}S {}^{17}O}}}{}%
+  \ifstrequal{#1}{33S17O}{\def\myretval{\ce{{}^{33}S {}^{17}O}}}{}%
+  \ifstrequal{#1}{34S17O}{\def\myretval{\ce{{}^{34}S {}^{17}O}}}{}%
+  \ifstrequal{#1}{36S17O}{\def\myretval{\ce{{}^{36}S {}^{17}O}}}{}%
+  \ifstrequal{#1}{32S18O}{\def\myretval{\ce{{}^{32}S {}^{18}O}}}{}%
+  \ifstrequal{#1}{33S18O}{\def\myretval{\ce{{}^{33}S {}^{18}O}}}{}%
+  \ifstrequal{#1}{34S18O}{\def\myretval{\ce{{}^{34}S {}^{18}O}}}{}%
+  \ifstrequal{#1}{36S18O}{\def\myretval{\ce{{}^{36}S {}^{18}O}}}{}%
   %% N2 isotopologues and states
   \ifstrequal{#1}{N2}{\def\myretval{\ce{N_2}}}{}%
   \ifstrequal{#1}{N2+}{\def\myretval{\ce{N_2^+}}}{}%
@@ -163,10 +178,14 @@
   \ifstrequal{#1}{OH_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
   \ifstrequal{#1}{OH_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
   \ifstrequal{#1}{OH_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{OD_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{OD_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{OD_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{CNX}{\def\myretval{\ensuremath{X\,{}^2\Sigma^+}}}{}%
+  % \ifstrequal{#1}{OD_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
+  % \ifstrequal{#1}{OD_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
+  % \ifstrequal{#1}{OD_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{CN_X}{\def\myretval{\ensuremath{X\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{CN_A}{\def\myretval{\ensuremath{A\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{CN_B}{\def\myretval{\ensuremath{B\,{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{CN_D}{\def\myretval{\ensuremath{D\,{}^2\Pi}}}{}%
+  \ifstrequal{#1}{CN_E}{\def\myretval{\ensuremath{E\,{}^2\Sigma^+}}}{}%
   %% symmetry symbols
   \ifstrequal{#1}{1Pi}{\def\myretval{\ensuremath{{}^1\Pi}}}{}%
   \ifstrequal{#1}{2Pi}{\def\myretval{\ensuremath{{}^2\Pi}}}{}%
