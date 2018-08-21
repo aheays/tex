@@ -4,6 +4,7 @@
 \usepackage{amsmath}            % math fonts and macros
 \usepackage{amssymb}            % math symbols
 \usepackage{unicode-math}
+\usepackage{enumitem}           %better lists
 %% 
 %% mhchem
 \usepackage[version=3]{mhchem}  % \ce{...} for chem equations
@@ -15,27 +16,16 @@
 {\begin{equation*}\ce{#1}\end{equation*}}
 \newcommand\myreaction{\@ifstar{\myreaction@nonumber}{\myreaction@}}
 \makeatother
-%% 
-% \usepackage{mathrsfs}           % provides \mathscr
 \usepackage{rotating}           % for sideways tables/figures
 \usepackage{verbatim}
-% \usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
-%% \usepackage[square,sort,numbers]{natbib} %use natbib \citet textual citation, \citep for paranthetical citation, options: square brackets, sort by number, cite number rather than author for \citep
-%% \usepackage[square,sort&compress,numbers]{natbib} %use natbib \citet textual citation, \citep for paranthetical citation, options: square brackets, sort by number, cite number rather than author for \citep
 \usepackage[warning,np]{numprint}
 \npdecimalsign{\ensuremath{.}}
 \npthousandsep{\,}
 \npproductsign{\times}
 \npfourdigitnosep
 \usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} % multipage tables, might need to adjust caption width
-%% \usepackage{lscape}             % allow \begin{landscape}...\end{landscape} for tables and things - perhaps better to use 'rotating' instead
-% \usepackage{bm}                 %necessary for bold greek symbols, use \bm instead of \mathbf
 \usepackage{url}                %\url{...} formatting
-%%\usepackage{bibentry} \nobibliography*
-%% \usepackage{dcolumn} %align on decimal dot in tables ie position specifier D{.}{.}{2}, enforces math mode for cell contents!!!
-%% \usepackage{exscale} %make manually sized brackets \big etc work properly
 \usepackage{multirow} % like \multicolumn in tables
-%% \usepackage[protrusion=true,expansion=true]{microtype} % better Dex-code
 \usepackage{booktabs} % better tables
 \usepackage{xcolor}   %svgnames load additional default colours, alternatives: dvipsnames, x11names
 %% biblatex, can't usepackage natbib and this
@@ -198,8 +188,6 @@
   \ifstrequal{#1}{3PiuOmega0}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=0}}}}{}%
   \ifstrequal{#1}{3PiuOmega1}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=1}}}}{}%
   \ifstrequal{#1}{3PiuOmega2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
-  % \ifstrequal{#1}{1Sigmau+}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
-  % \ifstrequal{#1}{3Sigmau+}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
   \ifstrequal{#1}{1Sigma+u}{\def\myretval{\ensuremath{{}^1\Sigma^+_u}}}{}%
   \ifstrequal{#1}{1Sigma+g}{\def\myretval{\ensuremath{{}^1\Sigma^+_g}}}{}%
   \ifstrequal{#1}{1Sigma+ue}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
@@ -225,6 +213,48 @@
   \ifstrequal{#1}{2Delta}{\def\myretval{\ensuremath{{}^2\Delta}}}{}%
   \ifstrequal{#1}{3Delta}{\def\myretval{\ensuremath{{}^3\Delta}}}{}%
   \ifstrequal{#1}{4Delta}{\def\myretval{\ensuremath{{}^4\Delta}}}{}%
+  \ifstrequal{#1}{1Π}{\def\myretval{\ensuremath{{}^1\Pi}}}{}%
+  \ifstrequal{#1}{2Π}{\def\myretval{\ensuremath{{}^2\Pi}}}{}%
+  \ifstrequal{#1}{2Π1/2}{\def\myretval{\ensuremath{{}^2\Pi_{1/2}}}}{}%
+  \ifstrequal{#1}{2Π3/2}{\def\myretval{\ensuremath{{}^2\Pi_{3/2}}}}{}%
+  \ifstrequal{#1}{4Π}{\def\myretval{\ensuremath{{}^4\Pi}}}{}%
+  \ifstrequal{#1}{1Πu}{\def\myretval{\ensuremath{{}^1\Pi_u}}}{}%
+  \ifstrequal{#1}{1Πuf}{\def\myretval{\ensuremath{{}^1\Pi_{u,f}}}}{}%
+  \ifstrequal{#1}{1Πue}{\def\myretval{\ensuremath{{}^1\Pi_{u,e}}}}{}%
+  \ifstrequal{#1}{3Π}{\def\myretval{\ensuremath{{}^3\Pi}}}{}%
+  \ifstrequal{#1}{3Πu}{\def\myretval{\ensuremath{{}^3\Pi_u}}}{}%
+  \ifstrequal{#1}{3ΠuΩ0}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=0}}}}{}%
+  \ifstrequal{#1}{3ΠuΩ1}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=1}}}}{}%
+  \ifstrequal{#1}{3ΠuΩ2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
+  \ifstrequal{#1}{1Σ+u}{\def\myretval{\ensuremath{{}^1\Sigma^+_u}}}{}%
+  \ifstrequal{#1}{1Σ+g}{\def\myretval{\ensuremath{{}^1\Sigma^+_g}}}{}%
+  \ifstrequal{#1}{1Σ+ue}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
+  \ifstrequal{#1}{1Σ+u0e}{\def\myretval{\ensuremath{{}^1\Sigma^+_{ue}}}}{}%
+  \ifstrequal{#1}{1Σ}{\def\myretval{\ensuremath{{}^1\Sigma}}}{}%
+  \ifstrequal{#1}{1Σ+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
+  \ifstrequal{#1}{1Σ-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
+  \ifstrequal{#1}{3Σ+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
+  \ifstrequal{#1}{3Σ-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
+  \ifstrequal{#1}{4Σ+}{\def\myretval{\ensuremath{{}^4\Sigma^+}}}{}%
+  \ifstrequal{#1}{4Σ-}{\def\myretval{\ensuremath{{}^4\Sigma^-}}}{}%
+  \ifstrequal{#1}{2Σ}{\def\myretval{\ensuremath{{}^2\Sigma}}}{}%
+  \ifstrequal{#1}{2Σ+}{\def\myretval{\ensuremath{{}^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{2Σ-}{\def\myretval{\ensuremath{{}^2\Sigma^-}}}{}%
+  \ifstrequal{#1}{3Σ+u}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
+  \ifstrequal{#1}{3Σ+u0}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
+  \ifstrequal{#1}{3Σ+u1}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
+  \ifstrequal{#1}{3Σ+u0f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u0f}}}}{}%
+  \ifstrequal{#1}{3Σ+u1e}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1e}}}}{}%
+  \ifstrequal{#1}{3Σ+u1f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1f}}}}{}%
+  \ifstrequal{#1}{1Σ+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
+  \ifstrequal{#1}{1Δ}{\def\myretval{\ensuremath{{}^1\Delta}}}{}%
+  \ifstrequal{#1}{2Δ}{\def\myretval{\ensuremath{{}^2\Delta}}}{}%
+  \ifstrequal{#1}{3Δ}{\def\myretval{\ensuremath{{}^3\Delta}}}{}%
+  \ifstrequal{#1}{4Δ}{\def\myretval{\ensuremath{{}^4\Delta}}}{}%
+  \ifstrequal{#1}{1Φ}{\def\myretval{\ensuremath{{}^1\Phi}}}{}%
+  \ifstrequal{#1}{2Φ}{\def\myretval{\ensuremath{{}^2\Phi}}}{}%
+  \ifstrequal{#1}{3Φ}{\def\myretval{\ensuremath{{}^3\Phi}}}{}%
+  \ifstrequal{#1}{4Φ}{\def\myretval{\ensuremath{{}^4\Phi}}}{}%
 %% atom states
   \ifstrequal{#1}{C1D}{\def\myretval{\ensuremath{\ce{C}({}^1D)}}}{}%
   \ifstrequal{#1}{C3P}{\def\myretval{\ensuremath{\ce{C}({}^3P)}}}{}%
