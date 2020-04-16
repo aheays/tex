@@ -2,16 +2,14 @@
 %% builds on article class to make simple class for quick reports, %%
 %% lists, letters etc.                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 \ProvidesClass{mysimple}[2013/11/31 v 0.01 simple class]
-%% add option for spacing
+%% add option for spacing, pass other options to article
+\LoadClass[a4paper,12pt,notitlepage]{article} % default options in base class
 \DeclareOption{doublespacing}{\AtEndOfPackage{\doublespacing}}
 \DeclareOption{singlespacing}{\AtEndOfPackage{\singlespacing}}
 \DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}% or whatever
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} %all other options passed to article
 \ProcessOptions\relax
-%% default options in base class
-\LoadClass[a4paper,12pt,notitlepage]{article}
 %%
 %% set margins -- must come before \usepackage{my} for some reason
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
@@ -21,19 +19,11 @@
 %%
 %% set font
 %%
-% \RequirePackage{palatino}\usepackage{palatino}\linespread{1.05} % Palatino font
-% \usepackage{fontspec} \setmainfont[Mapping=tex-text]{Droid Sans Fallback}
-% \usepackage{fontspec} \setmainfont[Mapping=tex-text]{Helvetica Sans}
 % \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
-\usepackage{mathspec} %loads fontspec as well
-\setmainfont{Liberation Sans}
-\setmathrm{Liberation Sans}
-\setmathfont(Digits,Latin){Liberation Sans}
-% \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Bitstream Charter}
-% \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Arial}
-% \usepackage{helvet} % Helvetica font
-% \renewcommand*\familydefault{\sfdefault} % Use the sans serif version of the font
-% \usepackage[T1]{fontenc}                 % good practice I believe
+% \usepackage{mathspec} %loads fontspec as well
+% \setmainfont{Liberation Sans}
+% \setmathrm{Liberation Sans}
+% \setmathfont(Digits,Latin){Liberation Sans}
 %%
 %% Allows in-line images
 \usepackage{wrapfig}
@@ -74,10 +64,11 @@ giveninits
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 \DeclareFieldFormat{journaltitle}{#1}     %not italic
 \DeclareBibliographyDriver{article}{%
-  \usebibmacro{author/translator+others} \printfield{year}, %
+  \usebibmacro{author/translator+others}% \printfield{year}, %
   \emph{\usebibmacro{title}}%
   % \newunit\newblock%
-  \printfield{journaltitle} \printfield{volume}:\printfield{pages}%
+  \printfield{journaltitle} (\printfield{volume}:\printfield{pages}),%
+  {\it\ \printfield{doi}}%
   \newunit\newblock%
   \usebibmacro{finentry}}
 %%
