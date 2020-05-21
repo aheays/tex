@@ -10,37 +10,30 @@
 \DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} %all other options passed to article
 \ProcessOptions\relax
-%%
 %% set margins -- must come before \usepackage{my} for some reason
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
 \usepackage{my} % my macros -- must come before for some reason
 \usepackage{lscape}             %permit \begin{landscape} \end{landscape}
 \usepackage{setspace} % needed for doublespacing
-%%
 %% set font
-%%
 % \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
 % \usepackage{mathspec} %loads fontspec as well
 % \setmainfont{Liberation Sans}
 % \setmathrm{Liberation Sans}
 % \setmathfont(Digits,Latin){Liberation Sans}
-%%
 %% Allows in-line images
 \usepackage{wrapfig}
-%%
 %% caption style
 \usepackage[labelfont={bf,it,footnotesize},textfont={bf,footnotesize}]{caption}
-%%
 %% paragraph no indent, line skip instead
 \parindent=0em
 \parskip=\baselineskip
 %% paragraph indent, no line skip instead
 % \parindent=0em
 % \parskip=\baselineskip
-%%
-\pagestyle{plain} %page numbers
-%% \pagestyle{empty}               %not page numbers
-%%
+%% page number
+\pagestyle{plain} % yes
+%% \pagestyle{empty}   % no
 %% default path to figures
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
 %%
@@ -52,14 +45,13 @@ backend=bibtex,
 style=authoryear,
 % autocite=superscript,
 natbib=true,
-giveninits
+giveninits,
+% maxnames=99,
+% maxbibnames=99,
+% maxcitenames=99,
 ]{biblatex}
 \let\cite\autocite              %removes the ability for a plain cite, but nevermind
 \addbibresource{/home/heays/refs/anhrefs.bib}
-% %% bug fix or biblatex -- delete and test one day
-% \makeatletter
-% \def\blx@maxline{77}
-% \makeatother
 %% custom bib style for article
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 \DeclareFieldFormat{journaltitle}{#1}     %not italic
@@ -71,30 +63,12 @@ giveninits
   {\it\ \printfield{doi}}%
   \newunit\newblock%
   \usebibmacro{finentry}}
-%%
 %% itemize with title
 \newenvironment{titleditemize}[1]{\paragraph{#1}\begin{itemize}}{\end{itemize}}
-%%
 %% new section formats, requires titlesec package
 \usepackage[compact]{titlesec} %[compact] for generic compactification
 %% next line temporary hack to be removed after titlesec upgrade
 \usepackage{etoolbox} \makeatletter \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{} \patchcmd{\ttlh@hang}{\noindent}{}{}{} \makeatother
-% %% \titlespacing{\section}{0pt}{0pt}{0pt}
-% \titlespacing*{\section}{0pt}{1em}{0.5em}
-% \titleformat{\section}
-% {\normalfont}
-% {\large\bfseries\thesection}
-% {8pt}
-% {\large\bfseries}
-% \titlespacing*{\subsection}{0pt}{1em}{0.5em}
-% \titleformat{\subsection}
-% {\normalfont}
-% {\bfseries\thesubsection}
-% % {\bfseries\filright \footnotesize \enspace SECTION \thesection\enspace}
-% {8pt}
-% {\normalsize\bfseries}
-% \titleformat{\subsubsection}{\normalfont}{\bfseries\thesubsection}{8pt}{\normalsize\it}
-%%
 %% make mathfonts the same style as the surrounding text environment
 \DeclareMathVersion{sans}
 \SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
