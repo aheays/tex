@@ -5,6 +5,7 @@
 \usepackage{amssymb}            % math symbols
 \usepackage{unicode-math}
 \usepackage{enumitem}           %better lists
+% \usepackage{aas_macros}
 %% 
 %% mhchem
 \usepackage[version=3]{mhchem}  % \ce{...} for chem equations
@@ -51,11 +52,19 @@
     \caption{#2 \label{#3}}%
   \end{figure*}%
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% fonts -- to see what fonts are available to lualatex %%
+%% "luaotfload-tool --list="                            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \setmainfont{stix2}
+% \setmathfont{stix2}
+% \setmathfont{xits-math}
 %%%%%%%%%%%%%%%%%%%%%
 %% commands I like %%
 %%%%%%%%%%%%%%%%%%%%%
 %% abbrev. for \multicolumn{1}{c}
 \newrobustcmd{\mymc}[1]{\multicolumn{1}{c}{#1}} 
+\newrobustcmd{\mc}[3]{\multicolumn{#1}{#2}{#3}} 
 %% use math roman font
 \newrobustcmd{\mychem}[1]{\ensuremath{\mathrm{#1}}}
 %% make match and text bold
@@ -63,7 +72,8 @@
 %% spacing etc
 % \newrobustcmd{\mymath}[1]{\ensuremath{#1}}
 %% comments
-\renewrobustcmd{\comment}[1]{\textbf{\textit{(#1)}}}
+\renewrobustcmd{\comment}[1]{\textbf{\textit{(Comment: #1)}}}
+\newrobustcmd{\footcomment}[1]{\footnote{{\textit{Comment: #1}}}}
 %% change
 \newrobustcmd{\change}[1]{{\color{red}#1}}
 %% replacements
@@ -73,34 +83,38 @@
 %% replacements including numbers, no arguments - SILENT IF COMMAND
 %% NOT FOUND!
 \newrobustcmd{\my}[1]{%
+  \def\myretval{?Unknown: #1?}%
   %% molecular hydrogen
   \ifstrequal{#1}{H2}{\def\myretval{\ce{H2}}}{}%
   \ifstrequal{#1}{HD}{\def\myretval{\ce{HD}}}{}%
   \ifstrequal{#1}{D2}{\def\myretval{\ce{D2}}}{}%  %% CO isotopologues
-  \def\myretval{?Unknown: #1?}%
-  \ifstrequal{#1}{CO}{\def\myretval{chem{CO}}}{}%
-  \ifstrequal{#1}{12C16O}{\def\myretval{\ce{{}^{12}C ^{16}O}}}{}%
-  \ifstrequal{#1}{12C17O}{\def\myretval{\ce{{}^{12}C ^{17}O}}}{}%
-  \ifstrequal{#1}{12C18O}{\def\myretval{\ce{{}^{12}C ^{18}O}}}{}%
-  \ifstrequal{#1}{13C16O}{\def\myretval{\ce{{}^{13}C ^{16}O}}}{}%
-  \ifstrequal{#1}{13C17O}{\def\myretval{\ce{{}^{13}C ^{17}O}}}{}%
-  \ifstrequal{#1}{13C18O}{\def\myretval{\ce{{}^{13}C ^{18}O}}}{}%
-  \ifstrequal{#1}{14C16O}{\def\myretval{\ce{{}^{14}C ^{16}O}}}{}%
-  \ifstrequal{#1}{14C17O}{\def\myretval{\ce{{}^{14}C ^{17}O}}}{}%
-  \ifstrequal{#1}{14C18O}{\def\myretval{\ce{{}^{14}C ^{18}O}}}{}%
-  %% N atomic states
-  \ifstrequal{#1}{N(4S)}{\def\myretval{\ce{N({}^4$S$)}}}{}%
-  \ifstrequal{#1}{N(2D)}{\def\myretval{\ce{N({}^2$D$)}}}{}%
-  \ifstrequal{#1}{N(2P)}{\def\myretval{\ce{N({}^2$P$)}}}{}%
-  %% S isotopes
+  %% S atoms
   \ifstrequal{#1}{32S}{\def\myretval{\ce{{}^{32}S}}}{}%
   \ifstrequal{#1}{33S}{\def\myretval{\ce{{}^{33}S}}}{}%
   \ifstrequal{#1}{34S}{\def\myretval{\ce{{}^{34}S}}}{}%
   \ifstrequal{#1}{36S}{\def\myretval{\ce{{}^{36}S}}}{}%
-  %% N isotopes
+  \ifstrequal{#1}{S(3P)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P})}}}{}%
+  \ifstrequal{#1}{S(1D)}{\def\myretval{\ensuremath{\ce{S}({}^1{\rm D})}}}{}%
+  %% C atoms
+  \ifstrequal{#1}{12C}{\def\myretval{\ce{{}^{12}C}}}{}%
+  \ifstrequal{#1}{13C}{\def\myretval{\ce{{}^{13}C}}}{}%
+  \ifstrequal{#1}{C(1D)}{\def\myretval{\ensuremath{\ce{C}({}^1D)}}}{}%
+  \ifstrequal{#1}{C(3P)}{\def\myretval{\ensuremath{\ce{C}({}^3P)}}}{}%
+  %% N atoms
   \ifstrequal{#1}{14N}{\def\myretval{\ce{{}^{14}N}}}{}%
   \ifstrequal{#1}{15N}{\def\myretval{\ce{{}^{15}N}}}{}%
-  %% SO isotopologues
+  \ifstrequal{#1}{N(4S)}{\def\myretval{\ensuremath{\ce{N}({}^4{\rm S})}}}{}%
+  \ifstrequal{#1}{N(2D)}{\def\myretval{\ensuremath{\ce{N}({}^2{\rm D})}}}{}%
+  \ifstrequal{#1}{N(2P)}{\def\myretval{\ensuremath{\ce{N}({}^2{\rm P})}}}{}%
+  %% O atoms
+  \ifstrequal{#1}{16O}{\def\myretval{\ce{{}^{16}O}}}{}%
+  \ifstrequal{#1}{17O}{\def\myretval{\ce{{}^{17}O}}}{}%
+  \ifstrequal{#1}{18O}{\def\myretval{\ce{{}^{18}O}}}{}%
+  \ifstrequal{#1}{O(3P)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P})}}}{}%
+  \ifstrequal{#1}{O(1D)}{\def\myretval{\ensuremath{\ce{O}({}^1{\rm D})}}}{}%
+  % \ifstrequal{#1}{O1D}{\def\myretval{\ensuremath{\ce{O}({}^1D)}}}{}%
+  % \ifstrequal{#1}{O3P}{\def\myretval{\ensuremath{\ce{O}({}^3P)}}}{}%
+  %% SO
   \ifstrequal{#1}{32S16O}{\def\myretval{\ce{{}^{32}S {}^{16}O}}}{}%
   \ifstrequal{#1}{33S16O}{\def\myretval{\ce{{}^{33}S {}^{16}O}}}{}%
   \ifstrequal{#1}{34S16O}{\def\myretval{\ce{{}^{34}S {}^{16}O}}}{}%
@@ -113,16 +127,48 @@
   \ifstrequal{#1}{33S18O}{\def\myretval{\ce{{}^{33}S {}^{18}O}}}{}%
   \ifstrequal{#1}{34S18O}{\def\myretval{\ce{{}^{34}S {}^{18}O}}}{}%
   \ifstrequal{#1}{36S18O}{\def\myretval{\ce{{}^{36}S {}^{18}O}}}{}%
-  %% N2 isotopologues and states
-  \ifstrequal{#1}{N2}{\def\myretval{\ce{N_2}}}{}%
+  \ifstrequal{#1}{SO_X}{\def\myretval{X\,^3\Sigma^-}}{}%
+  \ifstrequal{#1}{SO_A}{\def\myretval{A\,^3\Pi}}{}%
+  \ifstrequal{#1}{SO_B}{\def\myretval{B\,^3\Sigma^-}}{}%
+  \ifstrequal{#1}{SO_C}{\def\myretval{C\,^3\Pi}}{}%
+  \ifstrequal{#1}{SO_d}{\def\myretval{C'\,^3\Pi}}{}%
+  \ifstrequal{#1}{SO_Cp}{\def\myretval{d\,^1\Pi}}{}%
+  %% NO
+  \ifstrequal{#1}{14N16O}{\def\myretval{\ce{{}^{14}N {}^{16}O}}}{}%
+  \ifstrequal{#1}{14N17O}{\def\myretval{\ce{{}^{14}N {}^{17}O}}}{}%
+  \ifstrequal{#1}{14N18O}{\def\myretval{\ce{{}^{14}N {}^{18}O}}}{}%
+  \ifstrequal{#1}{15N16O}{\def\myretval{\ce{{}^{15}N {}^{16}O}}}{}%
+  \ifstrequal{#1}{15N17O}{\def\myretval{\ce{{}^{15}N {}^{17}O}}}{}%
+  \ifstrequal{#1}{15N18O}{\def\myretval{\ce{{}^{15}N {}^{18}O}}}{}%
+  \ifstrequal{#1}{NO_X}{\def\myretval{\ensuremath{X\,^2\Pi}}}{}%
+  \ifstrequal{#1}{NO_A}{\def\myretval{\ensuremath{A\,^2\Sigma^+}}}{}%
+  \ifstrequal{#1}{NO_B}{\def\myretval{\ensuremath{B\,^2\Pi}}}{}%
+  \ifstrequal{#1}{NO_C}{\def\myretval{\ensuremath{C\,^2\Pi}}}{}%
+  %% SO2 isotopologues
+  \ifstrequal{#1}{SO2}{\def\myretval{\ce{SO2}}}{}%
+  \ifstrequal{#1}{32S16O2}{\def\myretval{\ce{{}^{32}S {}^{16}O_2}}}{}%
+  \ifstrequal{#1}{33S16O2}{\def\myretval{\ce{{}^{33}S {}^{16}O_2}}}{}%
+  \ifstrequal{#1}{34S16O2}{\def\myretval{\ce{{}^{34}S {}^{16}O_2}}}{}%
+  \ifstrequal{#1}{36S16O2}{\def\myretval{\ce{{}^{36}S {}^{16}O_2}}}{}%
+  \ifstrequal{#1}{32S17O2}{\def\myretval{\ce{{}^{32}S {}^{17}O_2}}}{}%
+  \ifstrequal{#1}{33S17O2}{\def\myretval{\ce{{}^{33}S {}^{17}O_2}}}{}%
+  \ifstrequal{#1}{34S17O2}{\def\myretval{\ce{{}^{34}S {}^{17}O_2}}}{}%
+  \ifstrequal{#1}{36S17O2}{\def\myretval{\ce{{}^{36}S {}^{17}O_2}}}{}%
+  \ifstrequal{#1}{32S18O2}{\def\myretval{\ce{{}^{32}S {}^{18}O_2}}}{}%
+  \ifstrequal{#1}{33S18O2}{\def\myretval{\ce{{}^{33}S {}^{18}O_2}}}{}%
+  \ifstrequal{#1}{34S18O2}{\def\myretval{\ce{{}^{34}S {}^{18}O_2}}}{}%
+  \ifstrequal{#1}{36S18O2}{\def\myretval{\ce{{}^{36}S {}^{18}O_2}}}{}%
+  %% N2+
   \ifstrequal{#1}{N2+}{\def\myretval{\ce{N_2^+}}}{}%
+  \ifstrequal{#1}{N2+X}{\def\myretval{\ensuremath{X\,^2\Sigma_g^+}}}{}%
+  \ifstrequal{#1}{N2+A}{\def\myretval{\ensuremath{A\,^2\Pi_u}}}{}%
+  \ifstrequal{#1}{N2+B}{\def\myretval{\ensuremath{X\,^2\Sigma_u^+}}}{}%
+  %% N2
+  \ifstrequal{#1}{N2}{\def\myretval{\ce{N_2}}}{}%
   \ifstrequal{#1}{14N2}{\def\myretval{\ce{{}^{14}N_2}}}{}%
   \ifstrequal{#1}{14N15N}{\def\myretval{\ce{{}^{14}N ^{15}N}}}{}%
   \ifstrequal{#1}{15N2}{\def\myretval{\ce{{}^{15}N_2}}}{}%
   \ifstrequal{#1}{N2X}{\def\myretval{\ensuremath{X\,^1\Sigma_g^+}}}{}%
-  \ifstrequal{#1}{N2+X}{\def\myretval{\ensuremath{X\,^2\Sigma_g^+}}}{}%
-  \ifstrequal{#1}{N2+A}{\def\myretval{\ensuremath{A\,^2\Pi_u}}}{}%
-  \ifstrequal{#1}{N2+B}{\def\myretval{\ensuremath{X\,^2\Sigma_u^+}}}{}%
   \ifstrequal{#1}{N2b}{\def\myretval{\ensuremath{b\,^1\Pi_u}}}{}%
   \ifstrequal{#1}{N2cn}{\def\myretval{\ensuremath{c_n\,^1\Pi_u}}}{}%
   \ifstrequal{#1}{N2c}{\def\myretval{\ensuremath{c_3\,^1\Pi_u}}}{}%
@@ -148,6 +194,17 @@
   \ifstrequal{#1}{N2Fn}{\def\myretval{\ensuremath{F_n\,^3\Pi_u}}}{}%
   \ifstrequal{#1}{N2Gn}{\def\myretval{\ensuremath{G_n\,^3\Pi_u}}}{}%
   \ifstrequal{#1}{N22}{\def\myretval{\ensuremath{2\,^3\Sigma^+_u}}}{}%
+  %% CO
+  \ifstrequal{#1}{CO}{\def\myretval{chem{CO}}}{}%
+  \ifstrequal{#1}{12C16O}{\def\myretval{\ce{{}^{12}C ^{16}O}}}{}%
+  \ifstrequal{#1}{12C17O}{\def\myretval{\ce{{}^{12}C ^{17}O}}}{}%
+  \ifstrequal{#1}{12C18O}{\def\myretval{\ce{{}^{12}C ^{18}O}}}{}%
+  \ifstrequal{#1}{13C16O}{\def\myretval{\ce{{}^{13}C ^{16}O}}}{}%
+  \ifstrequal{#1}{13C17O}{\def\myretval{\ce{{}^{13}C ^{17}O}}}{}%
+  \ifstrequal{#1}{13C18O}{\def\myretval{\ce{{}^{13}C ^{18}O}}}{}%
+  \ifstrequal{#1}{14C16O}{\def\myretval{\ce{{}^{14}C ^{16}O}}}{}%
+  \ifstrequal{#1}{14C17O}{\def\myretval{\ce{{}^{14}C ^{17}O}}}{}%
+  \ifstrequal{#1}{14C18O}{\def\myretval{\ce{{}^{14}C ^{18}O}}}{}%
   \ifstrequal{#1}{COX}{\def\myretval{\ensuremath{X{}^1\Sigma^+}}}{}%
   \ifstrequal{#1}{COA}{\def\myretval{\ensuremath{A{}^1\Pi}}}{}%
   \ifstrequal{#1}{COa}{\def\myretval{\ensuremath{a{}^3\Pi}}}{}%
@@ -158,7 +215,9 @@
   \ifstrequal{#1}{COEp}{\def\myretval{\ensuremath{E'{}^1\Pi}}}{}%
   \ifstrequal{#1}{COEpp}{\def\myretval{\ensuremath{E''{}^1\Pi}}}{}%
   \ifstrequal{#1}{COe}{\def\myretval{\ensuremath{e{}^3\Sigma^-}}}{}%
+  %% CO+
   \ifstrequal{#1}{CO+A}{\def\myretval{\ensuremath{A{}^2\Pi}}}{}%
+  %% OH
   \ifstrequal{#1}{OHX}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
   \ifstrequal{#1}{OHA}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
   \ifstrequal{#1}{OHD}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
@@ -171,6 +230,7 @@
   % \ifstrequal{#1}{OD_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
   % \ifstrequal{#1}{OD_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
   % \ifstrequal{#1}{OD_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
+  %% CN
   \ifstrequal{#1}{CN_X}{\def\myretval{\ensuremath{X\,{}^2\Sigma^+}}}{}%
   \ifstrequal{#1}{CN_A}{\def\myretval{\ensuremath{A\,{}^2\Pi}}}{}%
   \ifstrequal{#1}{CN_B}{\def\myretval{\ensuremath{B\,{}^2\Sigma^+}}}{}%
@@ -223,6 +283,7 @@
   \ifstrequal{#1}{1Πue}{\def\myretval{\ensuremath{{}^1\Pi_{u,e}}}}{}%
   \ifstrequal{#1}{3Π}{\def\myretval{\ensuremath{{}^3\Pi}}}{}%
   \ifstrequal{#1}{3Πu}{\def\myretval{\ensuremath{{}^3\Pi_u}}}{}%
+  \ifstrequal{#1}{3ΠΩef}{\def\myretval{\ensuremath{{}^3\Pi_{\Omega\!\myef}}}}{}%
   \ifstrequal{#1}{3ΠuΩ0}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=0}}}}{}%
   \ifstrequal{#1}{3ΠuΩ1}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=1}}}}{}%
   \ifstrequal{#1}{3ΠuΩ2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
@@ -235,6 +296,7 @@
   \ifstrequal{#1}{1Σ-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
   \ifstrequal{#1}{3Σ+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
   \ifstrequal{#1}{3Σ-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
+  \ifstrequal{#1}{3Σ-Ωef}{\def\myretval{\ensuremath{{}^3\Sigma^-_{Ω\!\myef}}}}{}%
   \ifstrequal{#1}{4Σ+}{\def\myretval{\ensuremath{{}^4\Sigma^+}}}{}%
   \ifstrequal{#1}{4Σ-}{\def\myretval{\ensuremath{{}^4\Sigma^-}}}{}%
   \ifstrequal{#1}{2Σ}{\def\myretval{\ensuremath{{}^2\Sigma}}}{}%
@@ -255,14 +317,9 @@
   \ifstrequal{#1}{2Φ}{\def\myretval{\ensuremath{{}^2\Phi}}}{}%
   \ifstrequal{#1}{3Φ}{\def\myretval{\ensuremath{{}^3\Phi}}}{}%
   \ifstrequal{#1}{4Φ}{\def\myretval{\ensuremath{{}^4\Phi}}}{}%
-%% atom states
-  \ifstrequal{#1}{C1D}{\def\myretval{\ensuremath{\ce{C}({}^1D)}}}{}%
-  \ifstrequal{#1}{C3P}{\def\myretval{\ensuremath{\ce{C}({}^3P)}}}{}%
-  \ifstrequal{#1}{O1D}{\def\myretval{\ensuremath{\ce{O}({}^1D)}}}{}%
-  \ifstrequal{#1}{O3P}{\def\myretval{\ensuremath{\ce{O}({}^3P)}}}{}%
   \myretval%
   }%
-%% tranaitions
+%% transitions
 \newrobustcmd{\myabs}[4]{\ensuremath{\my{#1}(#2)\leftarrow\my{#3}(#4)}}
 %% units, optional argument is value
 \newrobustcmd{\myinvs}[1]{\numprint[s^{-1}]{#1}\xspace}
@@ -289,6 +346,8 @@
 \newrobustcmd{\mym}[1]{\numprint[m]{#1}\xspace}
 \newrobustcmd{\mymb}[1]{\numprint[mb]{#1}\xspace}
 \newrobustcmd{\mydegree}[1]{\ensuremath{#1^\circ}} % degree symbol
+%% some other symbols
+\newrobustcmd{\myef}{\genfrac{}{}{0pt}{}{e}{f}} % e atop f
 %% complex math operators with arguments
 \newrobustcmd{\mybra}[1]{\ensuremath{\langle #1 \vert}}
 \newrobustcmd{\myket}[1]{\ensuremath{\vert #1 \rangle}}
@@ -297,10 +356,13 @@
 %% astronomy macros
 \newrobustcmd{\myAV}{\ensuremath{A_\text{V}}\xspace}
 \newrobustcmd{\mynH}{\ensuremath{n_\text{H}}\xspace}
-
-                                % \newrobustcmd{\simpropto}{\ensuremath{\shortstack{\hspace{0.5ex}\propto\hspace{0.5ex}\vspace{-0.5ex}\\\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}}}}
+% \newrobustcmd{\simpropto}{\ensuremath{\shortstack{\hspace{0.5ex}\propto\hspace{0.5ex}\vspace{-0.5ex}\\\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}}}}
 \newrobustcmd{\mysimpropto}{\shortstack{$\hspace{0.5ex}\propto\hspace{0.5ex}\vspace{-0.5ex}$\\$\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}$}}
 % \newcommand{\simpropto}{\text{\shortstack{\hspace{0.5ex}\ensuremath{\propto}\hspace{0.5ex}\vspace{-0.5ex}\\\hspace{0.5ex}\ensuremath{\sim}\hspace{0.5ex}\vspace{-0.6ex}}}}
-
-
-
+%
+%%%%%%%%%%%%%%%%%%%
+%% miscellaneous %%
+%%%%%%%%%%%%%%%%%%%
+%
+%% \myallcolumns{c}{text} sets a \multicolumn{X}{c}{text} where X is the total number of columns
+% \newrobustcmd{\myallcolumns}[2]{\makeatletter\multicolumn{\LT@cols}{#1}{#2}\makeatother}
