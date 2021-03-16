@@ -5,6 +5,10 @@
 \usepackage{amssymb}            % math symbols
 \usepackage{unicode-math}
 \usepackage{enumitem}           %better lists
+% Track changes, add comments. Options to diplay
+% footnotes/inline/margins/finalnew/finalold. Make notes with \note{}
+% \annote{}{} \add{} \remove{} \change{}{}
+% \usepackage[inline]{trackchanges} 
 % \usepackage{aas_macros}
 %% 
 %% mhchem
@@ -69,13 +73,11 @@
 \newrobustcmd{\mychem}[1]{\ensuremath{\mathrm{#1}}}
 %% make match and text bold
 \newrobustcmd{\mybf}[1]{\textbf{\boldmath{}#1}}
-%% spacing etc
-% \newrobustcmd{\mymath}[1]{\ensuremath{#1}}
 %% comments
 \renewrobustcmd{\comment}[1]{\textbf{\textit{(Comment: #1)}}}
-\newrobustcmd{\footcomment}[1]{\footnote{{\textit{Comment: #1}}}}
-%% change
-\newrobustcmd{\change}[1]{{\color{red}#1}}
+\newrobustcmd{\footcomment}[1]{\footnote{{\bf\it{}Comment: #1}}}
+%% changes
+% \newrobustcmd{\change}[1]{{\color{red}#1}}
 %% replacements
 \newrobustcmd{\myie}{\textit{i.e.}\xspace}
 \newrobustcmd{\myetal}{\textit{et al.}\xspace}
@@ -94,7 +96,11 @@
   \ifstrequal{#1}{34S}{\def\myretval{\ce{{}^{34}S}}}{}%
   \ifstrequal{#1}{36S}{\def\myretval{\ce{{}^{36}S}}}{}%
   \ifstrequal{#1}{S(3P)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P})}}}{}%
+  \ifstrequal{#1}{S(3P2)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_2)}}}{}%
+  \ifstrequal{#1}{S(3P1)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_1)}}}{}%
+  \ifstrequal{#1}{S(3P0)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_0)}}}{}%
   \ifstrequal{#1}{S(1D)}{\def\myretval{\ensuremath{\ce{S}({}^1{\rm D})}}}{}%
+  \ifstrequal{#1}{S(1D2)}{\def\myretval{\ensuremath{\ce{S}({}^1{\rm D}_2)}}}{}%
   %% C atoms
   \ifstrequal{#1}{12C}{\def\myretval{\ce{{}^{12}C}}}{}%
   \ifstrequal{#1}{13C}{\def\myretval{\ce{{}^{13}C}}}{}%
@@ -111,7 +117,11 @@
   \ifstrequal{#1}{17O}{\def\myretval{\ce{{}^{17}O}}}{}%
   \ifstrequal{#1}{18O}{\def\myretval{\ce{{}^{18}O}}}{}%
   \ifstrequal{#1}{O(3P)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P})}}}{}%
+  \ifstrequal{#1}{O(3P2)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_2)}}}{}%
+  \ifstrequal{#1}{O(3P1)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_1)}}}{}%
+  \ifstrequal{#1}{O(3P0)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_0)}}}{}%
   \ifstrequal{#1}{O(1D)}{\def\myretval{\ensuremath{\ce{O}({}^1{\rm D})}}}{}%
+  \ifstrequal{#1}{O(1D2)}{\def\myretval{\ensuremath{\ce{O}({}^1{\rm D}_2)}}}{}%
   % \ifstrequal{#1}{O1D}{\def\myretval{\ensuremath{\ce{O}({}^1D)}}}{}%
   % \ifstrequal{#1}{O3P}{\def\myretval{\ensuremath{\ce{O}({}^3P)}}}{}%
   %% SO
@@ -294,6 +304,7 @@
   \ifstrequal{#1}{1Σ}{\def\myretval{\ensuremath{{}^1\Sigma}}}{}%
   \ifstrequal{#1}{1Σ+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
   \ifstrequal{#1}{1Σ-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
+  \ifstrequal{#1}{3Σ}{\def\myretval{\ensuremath{{}^3\Sigma}}}{}%
   \ifstrequal{#1}{3Σ+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
   \ifstrequal{#1}{3Σ-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
   \ifstrequal{#1}{3Σ-Ωef}{\def\myretval{\ensuremath{{}^3\Sigma^-_{Ω\!\myef}}}}{}%
@@ -317,6 +328,10 @@
   \ifstrequal{#1}{2Φ}{\def\myretval{\ensuremath{{}^2\Phi}}}{}%
   \ifstrequal{#1}{3Φ}{\def\myretval{\ensuremath{{}^3\Phi}}}{}%
   \ifstrequal{#1}{4Φ}{\def\myretval{\ensuremath{{}^4\Phi}}}{}%
+  \ifstrequal{#1}{1Γ}{\def\myretval{\ensuremath{{}^1\Gamma}}}{}%
+  \ifstrequal{#1}{2Γ}{\def\myretval{\ensuremath{{}^2\Gamma}}}{}%
+  \ifstrequal{#1}{3Γ}{\def\myretval{\ensuremath{{}^3\Gamma}}}{}%
+  \ifstrequal{#1}{4Γ}{\def\myretval{\ensuremath{{}^4\Gamma}}}{}%
   \myretval%
   }%
 %% transitions
