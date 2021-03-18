@@ -5,19 +5,23 @@
 \ProcessOptions\relax
 \LoadClass[a4paper,notitlepage,twocolumn]{article}
 % \LoadClass[a4paper,notitlepage]{article}
-\usepackage[T1]{fontenc}                 % good practice I believe
+% \usepackage[T1]{fontenc}                 % good practice I believe
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry} % Reduce the size of the margin
 \usepackage{my}
 %% default path to figures
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
+%% footnotes marked with a,b,c, etc
+\renewcommand{\thefootnote}{\arabic{footnote}}
 %% biblatex 
-% % \usepackage[%
-% backend=bibtex,sorting=none,style=numeric-comp,%
-% autocite=superscript,natbib=true,%
-% firstinits,maxcitenames=1,maxbibnames=1%
-% ]{biblatex}
-% \let\cite\autocite              %removes the ability for a plain cite, but nevermind
-% \addbibresource{/home/heays/refs/anhrefs.bib} %where I normally keep references
+\usepackage[%
+% backend=bibtex,%
+backend=biber,%
+sorting=none,style=numeric-comp,%
+autocite=superscript,natbib=true,%
+giveninits,maxcitenames=1,maxbibnames=1%
+]{biblatex}
+\let\cite\autocite              %removes the ability for a plain cite, but nevermind
+\addbibresource{/home/heays/refs/anhrefs.bib} %where I normally keep references
 % \addbibresource{article.bib}                  %sometimes also locally with this name
 %% custom bib style for article
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
