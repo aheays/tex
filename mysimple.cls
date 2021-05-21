@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesClass{mysimple}[2013/11/31 v 0.01 simple class]
 %% add option for spacing, pass other options to article
-\LoadClass[a4paper,12pt,notitlepage]{article} % default options in base class
+\LoadClass[letter,11pt,notitlepage]{article} % default options in base class
 \DeclareOption{doublespacing}{\AtEndOfPackage{\doublespacing}}
 \DeclareOption{singlespacing}{\AtEndOfPackage{\singlespacing}}
 \DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
@@ -39,30 +39,32 @@
 %%
 %% biblatex 
 \usepackage[
-backend=bibtex,
+% backend=bibtex,
+backend=biber,
 % sorting=none,
 % style=numeric-comp,
-style=authoryear,
+% style=authoryear,
+style=iso-authoryear,
 % autocite=superscript,
 natbib=true,
-giveninits,
+giveninits=true,
 % maxnames=99,
 % maxbibnames=99,
 % maxcitenames=99,
 ]{biblatex}
 \let\cite\autocite              %removes the ability for a plain cite, but nevermind
-\addbibresource{/home/heays/refs/anhrefs.bib}
-%% custom bib style for article
-\DeclareFieldFormat{pages}{\mkfirstpage{#1}}
-\DeclareFieldFormat{journaltitle}{#1}     %not italic
-\DeclareBibliographyDriver{article}{%
-  \usebibmacro{author/translator+others}% \printfield{year}, %
-  \emph{\usebibmacro{title}}%
+% \addbibresource{/home/heays/refs/anhrefs.bib}
+% %% custom bib style for article
+% \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
+% \DeclareFieldFormat{journaltitle}{#1}     %not italic
+% \DeclareBibliographyDriver{article}{%
+  % \usebibmacro{author/translator+others}% \printfield{year}, %
+  % \emph{\usebibmacro{title}}%
+  % % \newunit\newblock%
+  % \printfield{journaltitle} (\printfield{volume}:\printfield{pages}),%
+  % {\it\ \printfield{doi}}%
   % \newunit\newblock%
-  \printfield{journaltitle} (\printfield{volume}:\printfield{pages}),%
-  {\it\ \printfield{doi}}%
-  \newunit\newblock%
-  \usebibmacro{finentry}}
+  % \usebibmacro{finentry}}
 %% itemize with title
 \newenvironment{titleditemize}[1]{\paragraph{#1}\begin{itemize}}{\end{itemize}}
 %% new section formats, requires titlesec package

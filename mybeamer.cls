@@ -5,6 +5,7 @@
 %% load beamer and options
 \LoadClass{beamer}
 \usetheme{metropolis}
+% \usetheme[height=7mm]{berkeley}
 \setbeamercovered{invisible}
 \setbeamertemplate{items}[rectangles] %ball
 \setbeamertemplate{theorems}[numbered]
@@ -14,8 +15,9 @@
 \usepackage{my} % a host of packages
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}} % default path to figures
 \usefonttheme{serif} % fonts
-\setmainfont[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,]{xits} %fonts
-\setmathfont[Extension=.otf,BoldFont=*bold,]{xits-math} %fonts
+% \usefonttheme{default} % fonts
+% \setmainfont[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,]{xits} %fonts
+% \setmathfont[Extension=.otf,BoldFont=*bold,]{xits-math} %fonts
 \linespread{1}
 %% colours
 % \definecolor{myblue}{rgb}{0.0, 0.2, 0.4}
