@@ -23,13 +23,17 @@
 \makeatother
 \usepackage{rotating}           % for sideways tables/figures
 \usepackage{verbatim}
-\usepackage[warning,np]{numprint}
-\npdecimalsign{\ensuremath{.}}
-\npthousandsep{\,}
-\npproductsign{\times}
-\npfourdigitnosep
+%% use numprint
+% \usepackage[warning,np]{numprint}
+% \npdecimalsign{\ensuremath{.}}
+% \npthousandsep{\,}
+% \npproductsign{\times}
+% \npfourdigitnosep
+%% use siunitx
+\usepackage[separate-uncertainty]{siunitx}%
+%%
 \usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} % multipage tables, might need to adjust caption width
-\usepackage{url}                %\url{...} formatting
+\usepackage{xurl}                %\url{...} formatting
 \usepackage{multirow} % like \multicolumn in tables
 \usepackage{booktabs} % better tables
 \usepackage{xcolor}   %svgnames load additional default colours, alternatives: dvipsnames, x11names
@@ -74,8 +78,11 @@
 %% make match and text bold
 \newrobustcmd{\mybf}[1]{\textbf{\boldmath{}#1}}
 %% comments
-\renewrobustcmd{\comment}[1]{\textbf{\textit{(Comment: #1)}}}
-\newrobustcmd{\footcomment}[1]{\footnote{{\bf\it{}Comment: #1}}}
+\newrobustcmd{\mycommentcommand}{\color{blue}}
+
+\renewrobustcmd{\comment}[1]{{\mycommentcommand{}(Comment: #1)}}
+\newrobustcmd{\footcomment}[1]{\footnote{{\mycommentcommand{}Comment: #1}}}
+\newenvironment{itemizecomments}{\mycommentcommand{}\paragraph{Comments:}\begin{itemize}}{\end{itemize}}
 %% changes
 % \newrobustcmd{\change}[1]{{\color{red}#1}}
 %% replacements
@@ -332,8 +339,12 @@
   \ifstrequal{#1}{2Γ}{\def\myretval{\ensuremath{{}^2\Gamma}}}{}%
   \ifstrequal{#1}{3Γ}{\def\myretval{\ensuremath{{}^3\Gamma}}}{}%
   \ifstrequal{#1}{4Γ}{\def\myretval{\ensuremath{{}^4\Gamma}}}{}%
+  %% some molecules
+  \ifstrequal{#1}{NOx}{\def\myretval{\ce{NO_x}}}{}%
+  \ifstrequal{#1}{NxOy}{\def\myretval{\ce{N_$x$O_$y$}}}{}%
   \myretval%
   }%
+
 %% transitions
 \newrobustcmd{\myabs}[4]{\ensuremath{\my{#1}(#2)\leftarrow\my{#3}(#4)}}
 %% units, optional argument is value

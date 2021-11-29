@@ -3,13 +3,15 @@
 %% lists, letters etc.                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesClass{mysimple}[2013/11/31 v 0.01 simple class]
-%% add option for spacing, pass other options to article
-\LoadClass[letter,11pt,notitlepage]{article} % default options in base class
-\DeclareOption{doublespacing}{\AtEndOfPackage{\doublespacing}}
-\DeclareOption{singlespacing}{\AtEndOfPackage{\singlespacing}}
-\DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} %all other options passed to article
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}% or whatever
 \ProcessOptions\relax
+% \DeclareOption{doublespacing}{\AtEndOfPackage{\doublespacing}}
+% \DeclareOption{singlespacing}{\AtEndOfPackage{\singlespacing}}
+% \DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
+% \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} %all other options passed to article
+% \LoadClass[a4paper,11pt,notitlepage]{article} % default options in base class
+\LoadClass[letter,11pt,notitlepage]{article} % default options in base class
+% \ProcessOptions\relax
 %% set margins -- must come before \usepackage{my} for some reason
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
 \usepackage{my} % my macros -- must come before for some reason
@@ -53,7 +55,7 @@ giveninits=true,
 % maxcitenames=99,
 ]{biblatex}
 \let\cite\autocite              %removes the ability for a plain cite, but nevermind
-% \addbibresource{/home/heays/refs/anhrefs.bib}
+\addbibresource{/home/heays/refs/anhrefs.bib}
 % %% custom bib style for article
 % \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 % \DeclareFieldFormat{journaltitle}{#1}     %not italic

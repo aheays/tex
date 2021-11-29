@@ -4,8 +4,10 @@
 \ProcessOptions\relax
 %% load beamer and options
 \LoadClass{beamer}
-\usetheme{metropolis}
-% \usetheme[height=7mm]{berkeley}
+%
+% \usetheme{boxes}
+\usetheme{Luebeck}
+%
 \setbeamercovered{invisible}
 \setbeamertemplate{items}[rectangles] %ball
 \setbeamertemplate{theorems}[numbered]
@@ -14,8 +16,10 @@
 \setbeamersize{text margin left=7pt,text margin right=7pt} 
 \usepackage{my} % a host of packages
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}} % default path to figures
-\usefonttheme{serif} % fonts
+% \usefonttheme{serif} % fonts
 % \usefonttheme{default} % fonts
+% \usepackage{fontspec}
+% \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 % \setmainfont[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,]{xits} %fonts
 % \setmathfont[Extension=.otf,BoldFont=*bold,]{xits-math} %fonts
 \linespread{1}
@@ -25,7 +29,7 @@
 % \definecolor{mygreen}{rgb}{0.0, 0.55, 0.55}
 %% bibliography
 \usepackage{csquotes}% Recommended
-\usepackage[backend=bibtex,style=authoryear]{biblatex}
+\usepackage[style=authoryear]{biblatex}
 \addbibresource{/home/heays/refs/anhrefs.bib}
 %% custom bib style
 \DeclareBibliographyDriver{article}{%
@@ -37,12 +41,23 @@
   \usebibmacro{finentry}}
 %% cite figures conveniently
 \newrobustcmd{\myfullcite}[1]{\scriptsize\fullcite{#1}}
+% \NewDocumentCommand{\myfigcite}{omo}{
+%   \IfNoValueF{#1}{#1}%           
+%   \\*\hfill% newline, right aligned
+%   {\footnotesize\textcite{#2}}%
+%   \IfNoValueF{#3}{#3}%
+% }
 \NewDocumentCommand{\myfigcite}{omo}{
   \IfNoValueF{#1}{#1}%           
-  \\*\hfill% newline, right aligned
+  \hfill% newline, right aligned
   {\footnotesize\textcite{#2}}%
   \IfNoValueF{#3}{#3}%
-}
+}%
+%% includegraphics with textwidth fraction and reference
+\NewDocumentCommand{\myfig}{O{1}mO{}}{%
+  \IfValueTF{#3}%
+      {\includegraphics[width=#1\textwidth]{#2}\\\myfigcite{#3}}%
+      {\includegraphics[width=#1\textwidth]{#2}\\}}%
 %%
 %% use text block to define a way to absolutely place things using:
 %%
@@ -58,6 +73,7 @@
 %% fullpage width centered figure
 \newrobustcmd{\myfullpagewidthgraphics}[1]{\centerline{\includegraphics[width=0.96\paperwidth]{#1}}}
 \newrobustcmd{\myfullpagegraphics}[1]{\centerline{\includegraphics[width=\paperwidth,height=0.88\paperheight,keepaspectratio]{#1}}}
+%$
 %%%%%%%%%%%
 %% lists %%
 %%%%%%%%%%%

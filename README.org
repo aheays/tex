@@ -1,0 +1,123 @@
+* All fonts availabe for xelatex
+font with fc-list
+
+Aharoni CLM
+Andale Mono
+Arial
+Arial Black
+Bitstream Charter
+Caladea
+Caladings CLM
+Calibri
+Cambria
+Candara
+Cantarell
+Carlito
+Century Schoolbook L
+Charis SIL
+cmex10
+cmmi10
+cmr10
+cmsy10
+CMU Bright
+CMU Classical Serif
+CMU Concrete
+CMU Sans Serif
+CMU Sans Serif Demi Condensed
+CMU Serif
+CMU Serif Extra
+CMU Serif Upright Italic
+CMU Typewriter Text
+CMU Typewriter Text Variable Width
+Comic Sans MS
+Consolas
+Constantia
+Corbel
+Courier 10 Pitch
+Courier New
+Cursor
+David CLM
+DejaVu LGC Sans
+DejaVu LGC Sans,DejaVu LGC Sans Condensed
+DejaVu LGC Sans,DejaVu LGC Sans Light
+DejaVu Sans
+DejaVu Sans,DejaVu Sans Condensed
+DejaVu Sans,DejaVu Sans Light
+DejaVu Sans Mono
+DejaVu Serif
+DejaVu Serif,DejaVu Serif Condensed
+Dingbats
+Droid Sans
+Droid Sans Mono
+Droid Serif
+Drugulin CLM
+Ellinia CLM
+esint10
+Essays1743
+eufm10
+FontAwesome
+Frank Ruehl CLM
+FreeMono
+FreeSans
+FreeSerif
+Georgia
+Hadasim CLM
+Impact
+Isabella
+jsMath\-cmbx10
+jsMath\-cmex10
+jsMath\-cmmi10
+jsMath\-cmr10
+jsMath\-cmsy10
+jsMath\-cmti10
+Liberation Mono
+Liberation Sans
+Liberation Serif
+MathJax_AMS
+MathJax_Caligraphic
+MathJax_Fraktur
+MathJax_Main
+MathJax_Math
+MathJax_SansSerif
+MathJax_Script
+MathJax_Size1
+MathJax_Size2
+MathJax_Size3
+MathJax_Size4
+MathJax_Typewriter
+MathJax_WinChrome
+MathJax_WinIE6
+MgOpen Canonica
+MgOpen Cosmetica
+Miriam CLM
+Miriam CLM,מרים
+Miriam Mono CLM
+msam10
+msbm10
+Nachlieli CLM
+Nimbus Mono L
+Nimbus Roman No9 L
+Nimbus Sans L
+OpenSymbol
+rsfs10
+Simple CLM
+Stam Ashkenaz CLM
+Stam Sefarad CLM
+Standard Symbols L
+STIX
+STIX Math
+stmary10
+Symbola
+Tahoma
+Terminus
+Times New Roman
+Trebuchet MS
+URW Bookman L
+URW Chancery L
+URW Gothic L
+URW Palladio L
+Utopia
+Verdana
+wasy10
+Webdings
+Yehuda CLM
