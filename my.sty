@@ -342,6 +342,9 @@
   %% some molecules
   \ifstrequal{#1}{NOx}{\def\myretval{\ce{NO_x}}}{}%
   \ifstrequal{#1}{NxOy}{\def\myretval{\ce{N_$x$O_$y$}}}{}%
+  %% IR vibrational levels
+  \ifstrequal{#1}{v3}{\def\myretval{\ensuremath{ν_3}}}{}%
+  %% return the end
   \myretval%
   }%
 
