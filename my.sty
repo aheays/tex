@@ -1,8 +1,9 @@
-\usepackage{etoolbox}           % includes newrobustcmd
-\usepackage{graphicx}           % includegraphics
-\usepackage{xspace}             % fix missing space after command names
-\usepackage{amsmath}            % math fonts and macros
-\usepackage{amssymb}            % math symbols
+\usepackage{expl3}             % access latex3 interface
+\usepackage{etoolbox}          % includes newrobustcmd
+\usepackage{graphicx}          % includegraphics
+\usepackage{xspace}            % fix missing space after command names
+\usepackage{amsmath}           % math fonts and macros
+\usepackage{amssymb}           % math symbols
 \usepackage{unicode-math}
 \usepackage{enumitem}           %better lists
 % Track changes, add comments. Options to diplay
@@ -89,265 +90,273 @@
 \newrobustcmd{\myie}{\textit{i.e.}\xspace}
 \newrobustcmd{\myetal}{\textit{et al.}\xspace}
 \newrobustcmd{\myabinitio}{\textit{ab initio}\xspace}
-%% replacements including numbers, no arguments - SILENT IF COMMAND
-%% NOT FOUND!
+%% replacement via \my{#1} command
+\ExplSyntaxOn%
 \newrobustcmd{\my}[1]{%
-  \def\myretval{?Unknown: #1?}%
-  %% molecular hydrogen
-  \ifstrequal{#1}{H2}{\def\myretval{\ce{H2}}}{}%
-  \ifstrequal{#1}{HD}{\def\myretval{\ce{HD}}}{}%
-  \ifstrequal{#1}{D2}{\def\myretval{\ce{D2}}}{}%  %% CO isotopologues
-  %% S atoms
-  \ifstrequal{#1}{32S}{\def\myretval{\ce{{}^{32}S}}}{}%
-  \ifstrequal{#1}{33S}{\def\myretval{\ce{{}^{33}S}}}{}%
-  \ifstrequal{#1}{34S}{\def\myretval{\ce{{}^{34}S}}}{}%
-  \ifstrequal{#1}{36S}{\def\myretval{\ce{{}^{36}S}}}{}%
-  \ifstrequal{#1}{S(3P)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P})}}}{}%
-  \ifstrequal{#1}{S(3P2)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_2)}}}{}%
-  \ifstrequal{#1}{S(3P1)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_1)}}}{}%
-  \ifstrequal{#1}{S(3P0)}{\def\myretval{\ensuremath{\ce{S}({}^3{\rm P}_0)}}}{}%
-  \ifstrequal{#1}{S(1D)}{\def\myretval{\ensuremath{\ce{S}({}^1{\rm D})}}}{}%
-  \ifstrequal{#1}{S(1D2)}{\def\myretval{\ensuremath{\ce{S}({}^1{\rm D}_2)}}}{}%
-  %% C atoms
-  \ifstrequal{#1}{12C}{\def\myretval{\ce{{}^{12}C}}}{}%
-  \ifstrequal{#1}{13C}{\def\myretval{\ce{{}^{13}C}}}{}%
-  \ifstrequal{#1}{C(1D)}{\def\myretval{\ensuremath{\ce{C}({}^1D)}}}{}%
-  \ifstrequal{#1}{C(3P)}{\def\myretval{\ensuremath{\ce{C}({}^3P)}}}{}%
-  %% N atoms
-  \ifstrequal{#1}{14N}{\def\myretval{\ce{{}^{14}N}}}{}%
-  \ifstrequal{#1}{15N}{\def\myretval{\ce{{}^{15}N}}}{}%
-  \ifstrequal{#1}{N(4S)}{\def\myretval{\ensuremath{\ce{N}({}^4{\rm S})}}}{}%
-  \ifstrequal{#1}{N(2D)}{\def\myretval{\ensuremath{\ce{N}({}^2{\rm D})}}}{}%
-  \ifstrequal{#1}{N(2P)}{\def\myretval{\ensuremath{\ce{N}({}^2{\rm P})}}}{}%
-  %% O atoms
-  \ifstrequal{#1}{16O}{\def\myretval{\ce{{}^{16}O}}}{}%
-  \ifstrequal{#1}{17O}{\def\myretval{\ce{{}^{17}O}}}{}%
-  \ifstrequal{#1}{18O}{\def\myretval{\ce{{}^{18}O}}}{}%
-  \ifstrequal{#1}{O(3P)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P})}}}{}%
-  \ifstrequal{#1}{O(3P2)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_2)}}}{}%
-  \ifstrequal{#1}{O(3P1)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_1)}}}{}%
-  \ifstrequal{#1}{O(3P0)}{\def\myretval{\ensuremath{\ce{O}({}^3{\rm P}_0)}}}{}%
-  \ifstrequal{#1}{O(1D)}{\def\myretval{\ensuremath{\ce{O}({}^1{\rm D})}}}{}%
-  \ifstrequal{#1}{O(1D2)}{\def\myretval{\ensuremath{\ce{O}({}^1{\rm D}_2)}}}{}%
-  % \ifstrequal{#1}{O1D}{\def\myretval{\ensuremath{\ce{O}({}^1D)}}}{}%
-  % \ifstrequal{#1}{O3P}{\def\myretval{\ensuremath{\ce{O}({}^3P)}}}{}%
-  %% SO
-  \ifstrequal{#1}{32S16O}{\def\myretval{\ce{{}^{32}S {}^{16}O}}}{}%
-  \ifstrequal{#1}{33S16O}{\def\myretval{\ce{{}^{33}S {}^{16}O}}}{}%
-  \ifstrequal{#1}{34S16O}{\def\myretval{\ce{{}^{34}S {}^{16}O}}}{}%
-  \ifstrequal{#1}{36S16O}{\def\myretval{\ce{{}^{36}S {}^{16}O}}}{}%
-  \ifstrequal{#1}{32S17O}{\def\myretval{\ce{{}^{32}S {}^{17}O}}}{}%
-  \ifstrequal{#1}{33S17O}{\def\myretval{\ce{{}^{33}S {}^{17}O}}}{}%
-  \ifstrequal{#1}{34S17O}{\def\myretval{\ce{{}^{34}S {}^{17}O}}}{}%
-  \ifstrequal{#1}{36S17O}{\def\myretval{\ce{{}^{36}S {}^{17}O}}}{}%
-  \ifstrequal{#1}{32S18O}{\def\myretval{\ce{{}^{32}S {}^{18}O}}}{}%
-  \ifstrequal{#1}{33S18O}{\def\myretval{\ce{{}^{33}S {}^{18}O}}}{}%
-  \ifstrequal{#1}{34S18O}{\def\myretval{\ce{{}^{34}S {}^{18}O}}}{}%
-  \ifstrequal{#1}{36S18O}{\def\myretval{\ce{{}^{36}S {}^{18}O}}}{}%
-  \ifstrequal{#1}{SO_X}{\def\myretval{X\,^3\Sigma^-}}{}%
-  \ifstrequal{#1}{SO_A}{\def\myretval{A\,^3\Pi}}{}%
-  \ifstrequal{#1}{SO_B}{\def\myretval{B\,^3\Sigma^-}}{}%
-  \ifstrequal{#1}{SO_C}{\def\myretval{C\,^3\Pi}}{}%
-  \ifstrequal{#1}{SO_d}{\def\myretval{C'\,^3\Pi}}{}%
-  \ifstrequal{#1}{SO_Cp}{\def\myretval{d\,^1\Pi}}{}%
-  %% NO
-  \ifstrequal{#1}{14N16O}{\def\myretval{\ce{{}^{14}N {}^{16}O}}}{}%
-  \ifstrequal{#1}{14N17O}{\def\myretval{\ce{{}^{14}N {}^{17}O}}}{}%
-  \ifstrequal{#1}{14N18O}{\def\myretval{\ce{{}^{14}N {}^{18}O}}}{}%
-  \ifstrequal{#1}{15N16O}{\def\myretval{\ce{{}^{15}N {}^{16}O}}}{}%
-  \ifstrequal{#1}{15N17O}{\def\myretval{\ce{{}^{15}N {}^{17}O}}}{}%
-  \ifstrequal{#1}{15N18O}{\def\myretval{\ce{{}^{15}N {}^{18}O}}}{}%
-  \ifstrequal{#1}{NO_X}{\def\myretval{\ensuremath{X\,^2\Pi}}}{}%
-  \ifstrequal{#1}{NO_A}{\def\myretval{\ensuremath{A\,^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{NO_B}{\def\myretval{\ensuremath{B\,^2\Pi}}}{}%
-  \ifstrequal{#1}{NO_C}{\def\myretval{\ensuremath{C\,^2\Pi}}}{}%
-  %% SO2 isotopologues
-  \ifstrequal{#1}{SO2}{\def\myretval{\ce{SO2}}}{}%
-  \ifstrequal{#1}{32S16O2}{\def\myretval{\ce{{}^{32}S {}^{16}O_2}}}{}%
-  \ifstrequal{#1}{33S16O2}{\def\myretval{\ce{{}^{33}S {}^{16}O_2}}}{}%
-  \ifstrequal{#1}{34S16O2}{\def\myretval{\ce{{}^{34}S {}^{16}O_2}}}{}%
-  \ifstrequal{#1}{36S16O2}{\def\myretval{\ce{{}^{36}S {}^{16}O_2}}}{}%
-  \ifstrequal{#1}{32S17O2}{\def\myretval{\ce{{}^{32}S {}^{17}O_2}}}{}%
-  \ifstrequal{#1}{33S17O2}{\def\myretval{\ce{{}^{33}S {}^{17}O_2}}}{}%
-  \ifstrequal{#1}{34S17O2}{\def\myretval{\ce{{}^{34}S {}^{17}O_2}}}{}%
-  \ifstrequal{#1}{36S17O2}{\def\myretval{\ce{{}^{36}S {}^{17}O_2}}}{}%
-  \ifstrequal{#1}{32S18O2}{\def\myretval{\ce{{}^{32}S {}^{18}O_2}}}{}%
-  \ifstrequal{#1}{33S18O2}{\def\myretval{\ce{{}^{33}S {}^{18}O_2}}}{}%
-  \ifstrequal{#1}{34S18O2}{\def\myretval{\ce{{}^{34}S {}^{18}O_2}}}{}%
-  \ifstrequal{#1}{36S18O2}{\def\myretval{\ce{{}^{36}S {}^{18}O_2}}}{}%
-  %% N2+
-  \ifstrequal{#1}{N2+}{\def\myretval{\ce{N_2^+}}}{}%
-  \ifstrequal{#1}{N2+X}{\def\myretval{\ensuremath{X\,^2\Sigma_g^+}}}{}%
-  \ifstrequal{#1}{N2+A}{\def\myretval{\ensuremath{A\,^2\Pi_u}}}{}%
-  \ifstrequal{#1}{N2+B}{\def\myretval{\ensuremath{X\,^2\Sigma_u^+}}}{}%
-  %% N2
-  \ifstrequal{#1}{N2}{\def\myretval{\ce{N_2}}}{}%
-  \ifstrequal{#1}{14N2}{\def\myretval{\ce{{}^{14}N_2}}}{}%
-  \ifstrequal{#1}{14N15N}{\def\myretval{\ce{{}^{14}N ^{15}N}}}{}%
-  \ifstrequal{#1}{15N2}{\def\myretval{\ce{{}^{15}N_2}}}{}%
-  \ifstrequal{#1}{N2X}{\def\myretval{\ensuremath{X\,^1\Sigma_g^+}}}{}%
-  \ifstrequal{#1}{N2b}{\def\myretval{\ensuremath{b\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2cn}{\def\myretval{\ensuremath{c_n\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2c}{\def\myretval{\ensuremath{c_3\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2c3}{\def\myretval{\ensuremath{c_3\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2e}{\def\myretval{\ensuremath{c_4\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2c4}{\def\myretval{\ensuremath{c_4\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2o}{\def\myretval{\ensuremath{o_3\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2o3}{\def\myretval{\ensuremath{o_3\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2on}{\def\myretval{\ensuremath{o_n\,^1\Pi_u}}}{}%
-  \ifstrequal{#1}{N2bp}{\def\myretval{\ensuremath{b'\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2cpn}{\def\myretval{\ensuremath{c'_{n+1}\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2cp}{\def\myretval{\ensuremath{c'_4\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2cp4}{\def\myretval{\ensuremath{c'_4\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2ep}{\def\myretval{\ensuremath{c'_5\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2cp5}{\def\myretval{\ensuremath{c'_5\,^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2D}{\def\myretval{\ensuremath{D\,^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{N2Cp}{\def\myretval{\ensuremath{C'\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2C}{\def\myretval{\ensuremath{C\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2F}{\def\myretval{\ensuremath{F\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2G}{\def\myretval{\ensuremath{G\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2F3}{\def\myretval{\ensuremath{F_3\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2G3}{\def\myretval{\ensuremath{G_3\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2Fn}{\def\myretval{\ensuremath{F_n\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N2Gn}{\def\myretval{\ensuremath{G_n\,^3\Pi_u}}}{}%
-  \ifstrequal{#1}{N22}{\def\myretval{\ensuremath{2\,^3\Sigma^+_u}}}{}%
-  %% CO
-  \ifstrequal{#1}{CO}{\def\myretval{chem{CO}}}{}%
-  \ifstrequal{#1}{12C16O}{\def\myretval{\ce{{}^{12}C ^{16}O}}}{}%
-  \ifstrequal{#1}{12C17O}{\def\myretval{\ce{{}^{12}C ^{17}O}}}{}%
-  \ifstrequal{#1}{12C18O}{\def\myretval{\ce{{}^{12}C ^{18}O}}}{}%
-  \ifstrequal{#1}{13C16O}{\def\myretval{\ce{{}^{13}C ^{16}O}}}{}%
-  \ifstrequal{#1}{13C17O}{\def\myretval{\ce{{}^{13}C ^{17}O}}}{}%
-  \ifstrequal{#1}{13C18O}{\def\myretval{\ce{{}^{13}C ^{18}O}}}{}%
-  \ifstrequal{#1}{14C16O}{\def\myretval{\ce{{}^{14}C ^{16}O}}}{}%
-  \ifstrequal{#1}{14C17O}{\def\myretval{\ce{{}^{14}C ^{17}O}}}{}%
-  \ifstrequal{#1}{14C18O}{\def\myretval{\ce{{}^{14}C ^{18}O}}}{}%
-  \ifstrequal{#1}{COX}{\def\myretval{\ensuremath{X{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{COA}{\def\myretval{\ensuremath{A{}^1\Pi}}}{}%
-  \ifstrequal{#1}{COa}{\def\myretval{\ensuremath{a{}^3\Pi}}}{}%
-  \ifstrequal{#1}{COW}{\def\myretval{\ensuremath{W{}^1\Pi}}}{}%
-  \ifstrequal{#1}{COB}{\def\myretval{\ensuremath{B{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{COC}{\def\myretval{\ensuremath{C{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{COE}{\def\myretval{\ensuremath{C{}^1\Pi}}}{}%
-  \ifstrequal{#1}{COEp}{\def\myretval{\ensuremath{E'{}^1\Pi}}}{}%
-  \ifstrequal{#1}{COEpp}{\def\myretval{\ensuremath{E''{}^1\Pi}}}{}%
-  \ifstrequal{#1}{COe}{\def\myretval{\ensuremath{e{}^3\Sigma^-}}}{}%
-  %% CO+
-  \ifstrequal{#1}{CO+A}{\def\myretval{\ensuremath{A{}^2\Pi}}}{}%
-  %% OH
-  \ifstrequal{#1}{OHX}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{OHA}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{OHD}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{ODX}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{ODA}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{ODD}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{OH_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{OH_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{OH_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  % \ifstrequal{#1}{OD_X}{\def\myretval{\ensuremath{X\,{}^2\Pi}}}{}%
-  % \ifstrequal{#1}{OD_A}{\def\myretval{\ensuremath{A\,{}^2\Sigma^+}}}{}%
-  % \ifstrequal{#1}{OD_D}{\def\myretval{\ensuremath{D\,{}^2\Sigma^-}}}{}%
-  %% CN
-  \ifstrequal{#1}{CN_X}{\def\myretval{\ensuremath{X\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{CN_A}{\def\myretval{\ensuremath{A\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{CN_B}{\def\myretval{\ensuremath{B\,{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{CN_D}{\def\myretval{\ensuremath{D\,{}^2\Pi}}}{}%
-  \ifstrequal{#1}{CN_E}{\def\myretval{\ensuremath{E\,{}^2\Sigma^+}}}{}%
-  %% symmetry symbols
-  \ifstrequal{#1}{1Pi}{\def\myretval{\ensuremath{{}^1\Pi}}}{}%
-  \ifstrequal{#1}{2Pi}{\def\myretval{\ensuremath{{}^2\Pi}}}{}%
-  \ifstrequal{#1}{4Pi}{\def\myretval{\ensuremath{{}^4\Pi}}}{}%
-  \ifstrequal{#1}{1Piu}{\def\myretval{\ensuremath{{}^1\Pi_u}}}{}%
-  \ifstrequal{#1}{1Piuf}{\def\myretval{\ensuremath{{}^1\Pi_{u,f}}}}{}%
-  \ifstrequal{#1}{1Piue}{\def\myretval{\ensuremath{{}^1\Pi_{u,e}}}}{}%
-  \ifstrequal{#1}{3Pi}{\def\myretval{\ensuremath{{}^3\Pi}}}{}%
-  \ifstrequal{#1}{3Piu}{\def\myretval{\ensuremath{{}^3\Pi_u}}}{}%
-  \ifstrequal{#1}{3PiuOmega0}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=0}}}}{}%
-  \ifstrequal{#1}{3PiuOmega1}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=1}}}}{}%
-  \ifstrequal{#1}{3PiuOmega2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
-  \ifstrequal{#1}{1Sigma+u}{\def\myretval{\ensuremath{{}^1\Sigma^+_u}}}{}%
-  \ifstrequal{#1}{1Sigma+g}{\def\myretval{\ensuremath{{}^1\Sigma^+_g}}}{}%
-  \ifstrequal{#1}{1Sigma+ue}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{1Sigma+u0e}{\def\myretval{\ensuremath{{}^1\Sigma^+_{ue}}}}{}%
-  \ifstrequal{#1}{1Sigma}{\def\myretval{\ensuremath{{}^1\Sigma}}}{}%
-  \ifstrequal{#1}{1Sigma+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{1Sigma-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
-  \ifstrequal{#1}{3Sigma+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
-  \ifstrequal{#1}{3Sigma-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
-  \ifstrequal{#1}{4Sigma+}{\def\myretval{\ensuremath{{}^4\Sigma^+}}}{}%
-  \ifstrequal{#1}{4Sigma-}{\def\myretval{\ensuremath{{}^4\Sigma^-}}}{}%
-  \ifstrequal{#1}{2Sigma}{\def\myretval{\ensuremath{{}^2\Sigma}}}{}%
-  \ifstrequal{#1}{2Sigma+}{\def\myretval{\ensuremath{{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{2Sigma-}{\def\myretval{\ensuremath{{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{3Sigma+u}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Sigma+u0}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Sigma+u1}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Sigma+u0f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u0f}}}}{}%
-  \ifstrequal{#1}{3Sigma+u1e}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1e}}}}{}%
-  \ifstrequal{#1}{3Sigma+u1f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1f}}}}{}%
-  \ifstrequal{#1}{1Sigma+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{1Delta}{\def\myretval{\ensuremath{{}^1\Delta}}}{}%
-  \ifstrequal{#1}{2Delta}{\def\myretval{\ensuremath{{}^2\Delta}}}{}%
-  \ifstrequal{#1}{3Delta}{\def\myretval{\ensuremath{{}^3\Delta}}}{}%
-  \ifstrequal{#1}{4Delta}{\def\myretval{\ensuremath{{}^4\Delta}}}{}%
-  \ifstrequal{#1}{1Π}{\def\myretval{\ensuremath{{}^1\Pi}}}{}%
-  \ifstrequal{#1}{2Π}{\def\myretval{\ensuremath{{}^2\Pi}}}{}%
-  \ifstrequal{#1}{2Π1/2}{\def\myretval{\ensuremath{{}^2\Pi_{1/2}}}}{}%
-  \ifstrequal{#1}{2Π3/2}{\def\myretval{\ensuremath{{}^2\Pi_{3/2}}}}{}%
-  \ifstrequal{#1}{4Π}{\def\myretval{\ensuremath{{}^4\Pi}}}{}%
-  \ifstrequal{#1}{1Πu}{\def\myretval{\ensuremath{{}^1\Pi_u}}}{}%
-  \ifstrequal{#1}{1Πuf}{\def\myretval{\ensuremath{{}^1\Pi_{u,f}}}}{}%
-  \ifstrequal{#1}{1Πue}{\def\myretval{\ensuremath{{}^1\Pi_{u,e}}}}{}%
-  \ifstrequal{#1}{3Π}{\def\myretval{\ensuremath{{}^3\Pi}}}{}%
-  \ifstrequal{#1}{3Πu}{\def\myretval{\ensuremath{{}^3\Pi_u}}}{}%
-  \ifstrequal{#1}{3ΠΩef}{\def\myretval{\ensuremath{{}^3\Pi_{\Omega\!\myef}}}}{}%
-  \ifstrequal{#1}{3ΠuΩ0}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=0}}}}{}%
-  \ifstrequal{#1}{3ΠuΩ1}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=1}}}}{}%
-  \ifstrequal{#1}{3ΠuΩ2}{\def\myretval{\ensuremath{{}^3\Pi_{u,\Omega=2}}}}{}%
-  \ifstrequal{#1}{1Σ+u}{\def\myretval{\ensuremath{{}^1\Sigma^+_u}}}{}%
-  \ifstrequal{#1}{1Σ+g}{\def\myretval{\ensuremath{{}^1\Sigma^+_g}}}{}%
-  \ifstrequal{#1}{1Σ+ue}{\def\myretval{\ensuremath{{}^1\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{1Σ+u0e}{\def\myretval{\ensuremath{{}^1\Sigma^+_{ue}}}}{}%
-  \ifstrequal{#1}{1Σ}{\def\myretval{\ensuremath{{}^1\Sigma}}}{}%
-  \ifstrequal{#1}{1Σ+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{1Σ-}{\def\myretval{\ensuremath{{}^1\Sigma^-}}}{}%
-  \ifstrequal{#1}{3Σ}{\def\myretval{\ensuremath{{}^3\Sigma}}}{}%
-  \ifstrequal{#1}{3Σ+}{\def\myretval{\ensuremath{{}^3\Sigma^+}}}{}%
-  \ifstrequal{#1}{3Σ-}{\def\myretval{\ensuremath{{}^3\Sigma^-}}}{}%
-  \ifstrequal{#1}{3Σ-Ωef}{\def\myretval{\ensuremath{{}^3\Sigma^-_{Ω\!\myef}}}}{}%
-  \ifstrequal{#1}{4Σ+}{\def\myretval{\ensuremath{{}^4\Sigma^+}}}{}%
-  \ifstrequal{#1}{4Σ-}{\def\myretval{\ensuremath{{}^4\Sigma^-}}}{}%
-  \ifstrequal{#1}{2Σ}{\def\myretval{\ensuremath{{}^2\Sigma}}}{}%
-  \ifstrequal{#1}{2Σ+}{\def\myretval{\ensuremath{{}^2\Sigma^+}}}{}%
-  \ifstrequal{#1}{2Σ-}{\def\myretval{\ensuremath{{}^2\Sigma^-}}}{}%
-  \ifstrequal{#1}{3Σ+u}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Σ+u0}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Σ+u1}{\def\myretval{\ensuremath{{}^3\Sigma_u^+}}}{}%
-  \ifstrequal{#1}{3Σ+u0f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u0f}}}}{}%
-  \ifstrequal{#1}{3Σ+u1e}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1e}}}}{}%
-  \ifstrequal{#1}{3Σ+u1f}{\def\myretval{\ensuremath{{}^3\Sigma^+_{u1f}}}}{}%
-  \ifstrequal{#1}{1Σ+}{\def\myretval{\ensuremath{{}^1\Sigma^+}}}{}%
-  \ifstrequal{#1}{1Δ}{\def\myretval{\ensuremath{{}^1\Delta}}}{}%
-  \ifstrequal{#1}{2Δ}{\def\myretval{\ensuremath{{}^2\Delta}}}{}%
-  \ifstrequal{#1}{3Δ}{\def\myretval{\ensuremath{{}^3\Delta}}}{}%
-  \ifstrequal{#1}{4Δ}{\def\myretval{\ensuremath{{}^4\Delta}}}{}%
-  \ifstrequal{#1}{1Φ}{\def\myretval{\ensuremath{{}^1\Phi}}}{}%
-  \ifstrequal{#1}{2Φ}{\def\myretval{\ensuremath{{}^2\Phi}}}{}%
-  \ifstrequal{#1}{3Φ}{\def\myretval{\ensuremath{{}^3\Phi}}}{}%
-  \ifstrequal{#1}{4Φ}{\def\myretval{\ensuremath{{}^4\Phi}}}{}%
-  \ifstrequal{#1}{1Γ}{\def\myretval{\ensuremath{{}^1\Gamma}}}{}%
-  \ifstrequal{#1}{2Γ}{\def\myretval{\ensuremath{{}^2\Gamma}}}{}%
-  \ifstrequal{#1}{3Γ}{\def\myretval{\ensuremath{{}^3\Gamma}}}{}%
-  \ifstrequal{#1}{4Γ}{\def\myretval{\ensuremath{{}^4\Gamma}}}{}%
-  %% some molecules
-  \ifstrequal{#1}{NOx}{\def\myretval{\ce{NO_x}}}{}%
-  \ifstrequal{#1}{NxOy}{\def\myretval{\ce{N_$x$O_$y$}}}{}%
-  %% IR vibrational levels
-  \ifstrequal{#1}{v3}{\def\myretval{\ensuremath{ν_3}}}{}%
-  %% return the end
-  \myretval%
-  }%
-
+  \str_case:nnF {#1} {%
+    %% molecular hydrogen
+    {H2}{\ce{H2}}%
+    {HD}{\ce{HD}}%
+    {D2}{\ce{D2}}%
+    %% CO isotopologues
+    %% S atoms
+    {32S}{\ce{{}^{32}S}}%
+    {33S}{\ce{{}^{33}S}}%
+    {34S}{\ce{{}^{34}S}}%
+    {36S}{\ce{{}^{36}S}}%
+    {S(3P)}{\ensuremath{\ce{S}({}^3{\rm P})}}%
+    {S(3P2)}{\ensuremath{\ce{S}({}^3{\rm P}\sb2)}}%
+    {S(3P1)}{\ensuremath{\ce{S}({}^3{\rm P}\sb1)}}%
+    {S(3P0)}{\ensuremath{\ce{S}({}^3{\rm P}\sb0)}}%
+    {S(1D)}{\ensuremath{\ce{S}({}^1{\rm D})}}%
+    {S(1D2)}{\ensuremath{\ce{S}({}^1{\rm D}\sb2)}}%
+    %% C atoms
+    {12C}{\ce{{}^{12}C}}%
+    {13C}{\ce{{}^{13}C}}%
+    {C(1D)}{\ensuremath{\ce{C}({}^1D)}}%
+    {C(3P)}{\ensuremath{\ce{C}({}^3P)}}%
+    %% N atoms
+    {14N}{\ce{{}^{14}N}}%
+    {15N}{\ce{{}^{15}N}}%
+    {N(4S)}{\ensuremath{\ce{N}({}^4{\rm S})}}%
+    {N(2D)}{\ensuremath{\ce{N}({}^2{\rm D})}}%
+    {N(2P)}{\ensuremath{\ce{N}({}^2{\rm P})}}%
+    %% O atoms
+    {16O}{\ce{{}^{16}O}}%
+    {17O}{\ce{{}^{17}O}}%
+    {18O}{\ce{{}^{18}O}}%
+    {O(3P)}{\ensuremath{\ce{O}({}^3{\rm P})}}%
+    {O(3P2)}{\ensuremath{\ce{O}({}^3{\rm P}\sb2)}}%
+    {O(3P1)}{\ensuremath{\ce{O}({}^3{\rm P}\sb1)}}%
+    {O(3P0)}{\ensuremath{\ce{O}({}^3{\rm P}\sb0)}}%
+    {O(1D)}{\ensuremath{\ce{O}({}^1{\rm D})}}%
+    {O(1D2)}{\ensuremath{\ce{O}({}^1{\rm D}\sb2)}}%
+    {O1D}{\ensuremath{\ce{O}({}^1D)}}%
+    {O3P}{\ensuremath{\ce{O}({}^3P)}}%
+    %% SO
+    {32S16O}{\ce{{}^{32}S {}^{16}O}}%
+    {33S16O}{\ce{{}^{33}S {}^{16}O}}%
+    {34S16O}{\ce{{}^{34}S {}^{16}O}}%
+    {36S16O}{\ce{{}^{36}S {}^{16}O}}%
+    {32S17O}{\ce{{}^{32}S {}^{17}O}}%
+    {33S17O}{\ce{{}^{33}S {}^{17}O}}%
+    {34S17O}{\ce{{}^{34}S {}^{17}O}}%
+    {36S17O}{\ce{{}^{36}S {}^{17}O}}%
+    {32S18O}{\ce{{}^{32}S {}^{18}O}}%
+    {33S18O}{\ce{{}^{33}S {}^{18}O}}%
+    {34S18O}{\ce{{}^{34}S {}^{18}O}}%
+    {36S18O}{\ce{{}^{36}S {}^{18}O}}%
+    {SO_X}{X\,^3\Sigma^-}%
+    {SO_A}{A\,^3\Pi}%
+    {SO_B}{B\,^3\Sigma^-}%
+    {SO_C}{C\,^3\Pi}%
+    {SO_d}{C'\,^3\Pi}%
+    {SO_Cp}{d\,^1\Pi}%
+    %% NO
+    {14N16O}{\ce{{}^{14}N {}^{16}O}}%
+    {14N17O}{\ce{{}^{14}N {}^{17}O}}%
+    {14N18O}{\ce{{}^{14}N {}^{18}O}}%
+    {15N16O}{\ce{{}^{15}N {}^{16}O}}%
+    {15N17O}{\ce{{}^{15}N {}^{17}O}}%
+    {15N18O}{\ce{{}^{15}N {}^{18}O}}%
+    {NO_X}{\ensuremath{X\,^2\Pi}}%
+    {NO_A}{\ensuremath{A\,^2\Sigma^+}}%
+    {NO_B}{\ensuremath{B\,^2\Pi}}%
+    {NO_C}{\ensuremath{C\,^2\Pi}}%
+    %% SO2 isotopologues
+    {SO2}{\ce{SO2}}%
+    {32S16O2}{\ce{{}^{32}S {}^{16}O\sb2}}%
+    {33S16O2}{\ce{{}^{33}S {}^{16}O\sb2}}%
+    {34S16O2}{\ce{{}^{34}S {}^{16}O\sb2}}%
+    {36S16O2}{\ce{{}^{36}S {}^{16}O\sb2}}%
+    {32S17O2}{\ce{{}^{32}S {}^{17}O\sb2}}%
+    {33S17O2}{\ce{{}^{33}S {}^{17}O\sb2}}%
+    {34S17O2}{\ce{{}^{34}S {}^{17}O\sb2}}%
+    {36S17O2}{\ce{{}^{36}S {}^{17}O\sb2}}%
+    {32S18O2}{\ce{{}^{32}S {}^{18}O\sb2}}%
+    {33S18O2}{\ce{{}^{33}S {}^{18}O\sb2}}%
+    {34S18O2}{\ce{{}^{34}S {}^{18}O\sb2}}%
+    {36S18O2}{\ce{{}^{36}S {}^{18}O\sb2}}%
+    %% N2+
+    {N2+}{\ce{N\sb2^+}}%
+    {N2+X}{\ensuremath{X\,^2\Sigma\sbg^+}}%
+    {N2+A}{\ensuremath{A\,^2\Pi\sbu}}%
+    {N2+B}{\ensuremath{X\,^2\Sigma\sbu^+}}%
+    %% N2
+    {N2}{\ce{N\sb2}}%
+    {14N2}{\ce{{}^{14}N\sb2}}%
+    {14N15N}{\ce{{}^{14}N ^{15}N}}%
+    {15N2}{\ce{{}^{15}N\sb2}}%
+    {N2X}{\ensuremath{X\,^1\Sigma\sbg^+}}%
+    {N2b}{\ensuremath{b\,^1\Pi\sbu}}%
+    {N2cn}{\ensuremath{c\sbn\,^1\Pi\sbu}}%
+    {N2c}{\ensuremath{c\sb3\,^1\Pi\sbu}}%
+    {N2c3}{\ensuremath{c\sb3\,^1\Pi\sbu}}%
+    {N2e}{\ensuremath{c\sb4\,^1\Pi\sbu}}%
+    {N2c4}{\ensuremath{c\sb4\,^1\Pi\sbu}}%
+    {N2o}{\ensuremath{o\sb3\,^1\Pi\sbu}}%
+    {N2o3}{\ensuremath{o\sb3\,^1\Pi\sbu}}%
+    {N2on}{\ensuremath{o\sbn\,^1\Pi\sbu}}%
+    {N2bp}{\ensuremath{b'\,^1\Sigma\sbu^+}}%
+    {N2cpn}{\ensuremath{c'\sb{n+1}\,^1\Sigma\sbu^+}}%
+    {N2cp}{\ensuremath{c'\sb4\,^1\Sigma\sbu^+}}%
+    {N2cp4}{\ensuremath{c'\sb4\,^1\Sigma\sbu^+}}%
+    {N2ep}{\ensuremath{c'\sb5\,^1\Sigma\sbu^+}}%
+    {N2cp5}{\ensuremath{c'\sb5\,^1\Sigma\sbu^+}}%
+    {N2D}{\ensuremath{D\,^3\Sigma\sbu^+}}%
+    {N2Cp}{\ensuremath{C'\,^3\Pi\sbu}}%
+    {N2C}{\ensuremath{C\,^3\Pi\sbu}}%
+    {N2F}{\ensuremath{F\,^3\Pi\sbu}}%
+    {N2G}{\ensuremath{G\,^3\Pi\sbu}}%
+    {N2F3}{\ensuremath{F\sb3\,^3\Pi\sbu}}%
+    {N2G3}{\ensuremath{G\sb3\,^3\Pi\sbu}}%
+    {N2Fn}{\ensuremath{F\sbn\,^3\Pi\sbu}}%
+    {N2Gn}{\ensuremath{G\sbn\,^3\Pi\sbu}}%
+    {N22}{\ensuremath{2\,^3\Sigma^+\sbu}}%
+    %% CO
+    {CO}{chem{CO}}%
+    {12C16O}{\ce{{}^{12}C ^{16}O}}%
+    {12C17O}{\ce{{}^{12}C ^{17}O}}%
+    {12C18O}{\ce{{}^{12}C ^{18}O}}%
+    {13C16O}{\ce{{}^{13}C ^{16}O}}%
+    {13C17O}{\ce{{}^{13}C ^{17}O}}%
+    {13C18O}{\ce{{}^{13}C ^{18}O}}%
+    {14C16O}{\ce{{}^{14}C ^{16}O}}%
+    {14C17O}{\ce{{}^{14}C ^{17}O}}%
+    {14C18O}{\ce{{}^{14}C ^{18}O}}%
+    {COX}{\ensuremath{X{}^1\Sigma^+}}%
+    {COA}{\ensuremath{A{}^1\Pi}}%
+    {COa}{\ensuremath{a{}^3\Pi}}%
+    {COW}{\ensuremath{W{}^1\Pi}}%
+    {COB}{\ensuremath{B{}^1\Sigma^+}}%
+    {COC}{\ensuremath{C{}^1\Sigma^+}}%
+    {COE}{\ensuremath{C{}^1\Pi}}%
+    {COEp}{\ensuremath{E'{}^1\Pi}}%
+    {COEpp}{\ensuremath{E''{}^1\Pi}}%
+    {COe}{\ensuremath{e{}^3\Sigma^-}}%
+    %% CO+
+    {CO+A}{\ensuremath{A{}^2\Pi}}%
+    %% OH
+    {OHX}{\ensuremath{X\,{}^2\Pi}}%
+    {OHA}{\ensuremath{A\,{}^2\Sigma^+}}%
+    {OHD}{\ensuremath{D\,{}^2\Sigma^-}}%
+    {ODX}{\ensuremath{X\,{}^2\Pi}}%
+    {ODA}{\ensuremath{A\,{}^2\Sigma^+}}%
+    {ODD}{\ensuremath{D\,{}^2\Sigma^-}}%
+    {OH_X}{\ensuremath{X\,{}^2\Pi}}%
+    {OH_A}{\ensuremath{A\,{}^2\Sigma^+}}%
+    {OH_D}{\ensuremath{D\,{}^2\Sigma^-}}%
+    {OD_X}{\ensuremath{X\,{}^2\Pi}}%
+    {OD_A}{\ensuremath{A\,{}^2\Sigma^+}}%
+    {OD_D}{\ensuremath{D\,{}^2\Sigma^-}}%
+    %% CN
+    {CN_X}{\ensuremath{X\,{}^2\Sigma^+}}%
+    {CN_A}{\ensuremath{A\,{}^2\Pi}}%
+    {CN_B}{\ensuremath{B\,{}^2\Sigma^+}}%
+    {CN_D}{\ensuremath{D\,{}^2\Pi}}%
+    {CN_E}{\ensuremath{E\,{}^2\Sigma^+}}%
+    %% CS2
+    {CS2}{\ce{CS2}}%
+    {12C32S2}{\ce{{}^{12}C{}^{32}S_2}}%
+    {32S12C34S}{\ce{{}^{32}S{}^{12}C{}^{34}S}}%
+    {32S12C33S}{\ce{{}^{32}S{}^{12}C{}^{33}S}}%
+    {13C32S2}{\ce{{}^{13}C{}^{32}S_2}}%
+    %% symmetry symbols
+    {1Pi}{\ensuremath{{}^1\Pi}}%
+    {2Pi}{\ensuremath{{}^2\Pi}}%
+    {4Pi}{\ensuremath{{}^4\Pi}}%
+    {1Piu}{\ensuremath{{}^1\Pi\sbu}}%
+    {1Piuf}{\ensuremath{{}^1\Pi\sb{u,f}}}%
+    {1Piue}{\ensuremath{{}^1\Pi\sb{u,e}}}%
+    {3Pi}{\ensuremath{{}^3\Pi}}%
+    {3Piu}{\ensuremath{{}^3\Pi\sbu}}%
+    {3PiuOmega0}{\ensuremath{{}^3\Pi\sb{u,\Omega=0}}}%
+    {3PiuOmega1}{\ensuremath{{}^3\Pi\sb{u,\Omega=1}}}%
+    {3PiuOmega2}{\ensuremath{{}^3\Pi\sb{u,\Omega=2}}}%
+    {1Sigma+u}{\ensuremath{{}^1\Sigma^+\sbu}}%
+    {1Sigma+g}{\ensuremath{{}^1\Sigma^+\sbg}}%
+    {1Sigma+ue}{\ensuremath{{}^1\Sigma\sbu^+}}%
+    {1Sigma+u0e}{\ensuremath{{}^1\Sigma^+\sb{ue}}}%
+    {1Sigma}{\ensuremath{{}^1\Sigma}}%
+    {1Sigma+}{\ensuremath{{}^1\Sigma^+}}%
+    {1Sigma-}{\ensuremath{{}^1\Sigma^-}}%
+    {3Sigma+}{\ensuremath{{}^3\Sigma^+}}%
+    {3Sigma-}{\ensuremath{{}^3\Sigma^-}}%
+    {4Sigma+}{\ensuremath{{}^4\Sigma^+}}%
+    {4Sigma-}{\ensuremath{{}^4\Sigma^-}}%
+    {2Sigma}{\ensuremath{{}^2\Sigma}}%
+    {2Sigma+}{\ensuremath{{}^2\Sigma^+}}%
+    {2Sigma-}{\ensuremath{{}^2\Sigma^-}}%
+    {3Sigma+u}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Sigma+u0}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Sigma+u1}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Sigma+u0f}{\ensuremath{{}^3\Sigma^+\sb{u0f}}}%
+    {3Sigma+u1e}{\ensuremath{{}^3\Sigma^+\sb{u1e}}}%
+    {3Sigma+u1f}{\ensuremath{{}^3\Sigma^+\sb{u1f}}}%
+    {1Sigma+}{\ensuremath{{}^1\Sigma^+}}%
+    {1Delta}{\ensuremath{{}^1\Delta}}%
+    {2Delta}{\ensuremath{{}^2\Delta}}%
+    {3Delta}{\ensuremath{{}^3\Delta}}%
+    {4Delta}{\ensuremath{{}^4\Delta}}%
+    {1Π}{\ensuremath{{}^1\Pi}}%
+    {2Π}{\ensuremath{{}^2\Pi}}%
+    {2Π1/2}{\ensuremath{{}^2\Pi\sb{1/2}}}%
+    {2Π3/2}{\ensuremath{{}^2\Pi\sb{3/2}}}%
+    {4Π}{\ensuremath{{}^4\Pi}}%
+    {1Πu}{\ensuremath{{}^1\Pi\sbu}}%
+    {1Πuf}{\ensuremath{{}^1\Pi\sb{u,f}}}%
+    {1Πue}{\ensuremath{{}^1\Pi\sb{u,e}}}%
+    {3Π}{\ensuremath{{}^3\Pi}}%
+    {3Πu}{\ensuremath{{}^3\Pi\sbu}}%
+    {3ΠΩef}{\ensuremath{{}^3\Pi\sb{\Omega\!\myef}}}%
+    {3ΠuΩ0}{\ensuremath{{}^3\Pi\sb{u,\Omega=0}}}%
+    {3ΠuΩ1}{\ensuremath{{}^3\Pi\sb{u,\Omega=1}}}%
+    {3ΠuΩ2}{\ensuremath{{}^3\Pi\sb{u,\Omega=2}}}%
+    {1Σ+u}{\ensuremath{{}^1\Sigma^+\sbu}}%
+    {1Σ+g}{\ensuremath{{}^1\Sigma^+\sbg}}%
+    {1Σ+ue}{\ensuremath{{}^1\Sigma\sbu^+}}%
+    {1Σ+u0e}{\ensuremath{{}^1\Sigma^+\sb{ue}}}%
+    {1Σ}{\ensuremath{{}^1\Sigma}}%
+    {1Σ+}{\ensuremath{{}^1\Sigma^+}}%
+    {1Σ-}{\ensuremath{{}^1\Sigma^-}}%
+    {3Σ}{\ensuremath{{}^3\Sigma}}%
+    {3Σ+}{\ensuremath{{}^3\Sigma^+}}%
+    {3Σ-}{\ensuremath{{}^3\Sigma^-}}%
+    {3Σ-Ωef}{\ensuremath{{}^3\Sigma^-\sb{Ω\!\myef}}}%
+    {4Σ+}{\ensuremath{{}^4\Sigma^+}}%
+    {4Σ-}{\ensuremath{{}^4\Sigma^-}}%
+    {2Σ}{\ensuremath{{}^2\Sigma}}%
+    {2Σ+}{\ensuremath{{}^2\Sigma^+}}%
+    {2Σ-}{\ensuremath{{}^2\Sigma^-}}%
+    {3Σ+u}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Σ+u0}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Σ+u1}{\ensuremath{{}^3\Sigma\sbu^+}}%
+    {3Σ+u0f}{\ensuremath{{}^3\Sigma^+\sb{u0f}}}%
+    {3Σ+u1e}{\ensuremath{{}^3\Sigma^+\sb{u1e}}}%
+    {3Σ+u1f}{\ensuremath{{}^3\Sigma^+\sb{u1f}}}%
+    {1Σ+}{\ensuremath{{}^1\Sigma^+}}%
+    {1Δ}{\ensuremath{{}^1\Delta}}%
+    {2Δ}{\ensuremath{{}^2\Delta}}%
+    {3Δ}{\ensuremath{{}^3\Delta}}%
+    {4Δ}{\ensuremath{{}^4\Delta}}%
+    {1Φ}{\ensuremath{{}^1\Phi}}%
+    {2Φ}{\ensuremath{{}^2\Phi}}%
+    {3Φ}{\ensuremath{{}^3\Phi}}%
+    {4Φ}{\ensuremath{{}^4\Phi}}%
+    {1Γ}{\ensuremath{{}^1\Gamma}}%
+    {2Γ}{\ensuremath{{}^2\Gamma}}%
+    {3Γ}{\ensuremath{{}^3\Gamma}}%
+    {4Γ}{\ensuremath{{}^4\Gamma}}%
+    %% some molecules
+    {NOx}{\ce{NO\sbx}}%
+    {NxOy}{\ce{N\sb$x$O\sb$y$}}%
+    %% IR vibrational levels
+    {v3}{\ensuremath{ν\sb3}}%
+    {v1+v3}{\ensuremath{ν\sb1+ν\sb3}}%
+  }{\emph{(Unknown: #1)}}%
+  \xspace%
+}%
+\ExplSyntaxOff%
 %% transitions
 \newrobustcmd{\myabs}[4]{\ensuremath{\my{#1}(#2)\leftarrow\my{#3}(#4)}}
 %% units, optional argument is value
