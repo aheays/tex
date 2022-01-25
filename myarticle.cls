@@ -4,8 +4,6 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}% or whatever
 \ProcessOptions\relax
 \LoadClass[ta4paper,notitlepage,twocolumn]{article}
-% \LoadClass[a4paper,notitlepage]{article}
-% \usepackage[T1]{fontenc}                 % good practice I believe
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry} % Reduce the size of the margin
 \usepackage{my}
 %% default path to figures
@@ -22,21 +20,21 @@ giveninits,maxcitenames=1,maxbibnames=1%
 ]{biblatex}
 \let\cite\autocite              %removes the ability for a plain cite, but nevermind
 \addbibresource{/home/heays/refs/anhrefs.bib} %where I normally keep references
-% \addbibresource{article.bib}                  %sometimes also locally with this name
+\addbibresource{article.bib}                  %sometimes also locally with this name
 %% custom bib style for article
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 \DeclareFieldFormat{journaltitle}{#1}     %not italic
 \DeclareBibliographyDriver{article}{%
   \usebibmacro{author/translator+others} \printfield{year},%
   \emph{\usebibmacro{title}}%
-  % \newunit\newblock%
-  \printfield{journaltitle} \printfield{volume}:\printfield{pages}%
+  \printfield{journaltitle} \printfield{doi}%
   \newunit\newblock%
   \usebibmacro{finentry}}
-%% brand new maketitle command - less space required
-% \renewcommand\maketitle{%
-    % {\raggedright\Large\bf\@title\newline}%
-    % {\normalsize \@author\newline}%
-    % {\normalsize \@date\newline\smallskip}%
-  % }
+%% change maketitle command to use less space required
+\renewcommand\maketitle{%
+  \raggedright
+    {\large\bf\@title\\[1ex]}%
+    {\normalsize \@author \quad|\quad \@date\newline}%
+    \smallskip%
+  }%
 \endinput
