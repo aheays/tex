@@ -18,7 +18,7 @@
 \usepackage{lscape}             %permit \begin{landscape} \end{landscape}
 \usepackage{setspace} % needed for doublespacing
 %% set font
-% \usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
+\usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
 % \usepackage{mathspec} %loads fontspec as well
 % \setmainfont{Liberation Sans}
 % \setmathrm{Liberation Sans}
@@ -27,6 +27,9 @@
 \usepackage{wrapfig}
 %% caption style
 \usepackage[labelfont={bf,it,footnotesize},textfont={bf,footnotesize}]{caption}
+%% date-time
+\usepackage[useregional=numeric]{datetime2} 
+\usepackage[british]{babel} 
 %% paragraph no indent, line skip instead
 \parindent=0em
 \parskip=\baselineskip

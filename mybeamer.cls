@@ -81,10 +81,19 @@
   label=\usebeamerfont*{itemize item}\usebeamercolor[fg]{itemize item}\usebeamertemplate{itemize item},
   noitemsep, topsep=0pt}
 %% myitemize -- stretches bullet points vertically to fill page
-\newenvironment{myitemize}{\vfill\begin{itemize}\setlength{\itemsep}{\fill}}{\end{itemize}\vfill}
+\newenvironment{myitemize}{%
+  \vfill\begin{itemize}\setlength{\itemsep}{%
+      \fill}}{\end{itemize}\vfill}
 %% myitemizetwocolumn -- two column items with unbroken space
 \usepackage{multicol}
-\newenvironment{myitemizetwocolumn}{\begin{multicols}{2}\begin{itemize}\normalsize\setlength\itemsep{0.3em}}{\end{itemize}\end{multicols}}
+\newenvironment{myitemizetwocolumn}{%
+  \begin{multicols}{2}%
+    \begin{itemize}%
+      \normalsize%
+      \setlength\itemsep{0.3em}%
+    }{%
+    \end{itemize}
+  \end{multicols}}
 %% insert a page from another pdf presentation
 \newrobustcmd{\myinsertpage}[2]{\centerline{\includegraphics[page=#1,width=\paperwidth,height=\paperheight,keepaspectratio]{#2}}}
 %% end input

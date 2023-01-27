@@ -1,6 +1,7 @@
 \usepackage{expl3}             % access latex3 interface
 \usepackage{etoolbox}          % includes newrobustcmd
 \usepackage{graphicx}          % includegraphics
+\graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
 \usepackage{xspace}            % fix missing space after command names
 \usepackage{amsmath}           % math fonts and macros
 \usepackage{amssymb}           % math symbols
@@ -31,7 +32,12 @@
 % \npproductsign{\times}
 % \npfourdigitnosep
 %% use siunitx
-\usepackage[separate-uncertainty]{siunitx}%
+\usepackage[
+separate-uncertainty,
+list-units=single,
+range-units=single,
+]{siunitx}%
+% \sisetup{list-units=single,range-units=single,}%
 %%
 \usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} % multipage tables, might need to adjust caption width
 \usepackage{xurl}                %\url{...} formatting
@@ -386,6 +392,7 @@
 \newrobustcmd{\mydegree}[1]{\ensuremath{#1^\circ}} % degree symbol
 %% some other symbols
 \newrobustcmd{\myef}{\genfrac{}{}{0pt}{}{e}{f}} % e atop f
+\newrobustcmd{\myhnu}{\ensuremath{h\nu}\xspace} % hν
 %% complex math operators with arguments
 \newrobustcmd{\mybra}[1]{\ensuremath{\langle #1 \vert}}
 \newrobustcmd{\myket}[1]{\ensuremath{\vert #1 \rangle}}
@@ -401,6 +408,8 @@
 %%%%%%%%%%%%%%%%%%%
 %% miscellaneous %%
 %%%%%%%%%%%%%%%%%%%
+%% add a command to set justified
+\def\justifying{\rightskip=0pt\spaceskip=0pt\xspaceskip=0pt\relax}
 %
 %% \myallcolumns{c}{text} sets a \multicolumn{X}{c}{text} where X is the total number of columns
 % \newrobustcmd{\myallcolumns}[2]{\makeatletter\multicolumn{\LT@cols}{#1}{#2}\makeatother}
