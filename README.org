@@ -1,3 +1,5 @@
+Custom LaTeX macros and classes.
+
 * All fonts availabe for xelatex
 font with fc-list
 
