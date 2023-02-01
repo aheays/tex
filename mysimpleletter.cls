@@ -20,6 +20,7 @@
 \newcommand{\sender}[1]{\renewcommand{\mysimpletlettersender}{#1}}
 \newcommand{\subject}[1]{\renewcommand{\mysimplelettersubject}{#1}}
 \newcommand{\recipient}[1]{\renewcommand{\mysimpleletterrecipient}{#1}}
+
 \newcommand{\makeheader}{
 \begin{minipage}[b]{0.5\textwidth} \today \end{minipage}
 \hfill
@@ -27,6 +28,7 @@
 \mysimpleletterrecipient \\
 \mysimplelettersubject \\ [1ex]
 }
+
 
 \newcommand{\signature}{%
   \includegraphics[width=0.15\textwidth]{signature_transparent.png}\\

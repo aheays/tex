@@ -5,43 +5,60 @@
 \ProvidesClass{mysimple}[2013/11/31 v 0.01 simple class]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}% or whatever
 \ProcessOptions\relax
-% \DeclareOption{doublespacing}{\AtEndOfPackage{\doublespacing}}
-% \DeclareOption{singlespacing}{\AtEndOfPackage{\singlespacing}}
-% \DeclareOption{onehalfspacing}{\AtEndOfPackage{\onehalfspacing}}
-% \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} %all other options passed to article
-% \LoadClass[a4paper,11pt,notitlepage]{article} % default options in base class
-\LoadClass[letter,11pt,notitlepage]{article} % default options in base class
+\LoadClass[a4paper,11pt,notitlepage]{article} % default options in base class
 % \ProcessOptions\relax
 %% set margins -- must come before \usepackage{my} for some reason
 \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
 \usepackage{my} % my macros -- must come before for some reason
-\usepackage{lscape}             %permit \begin{landscape} \end{landscape}
-\usepackage{setspace} % needed for doublespacing
+%% permit \begin{landscape} \end{landscape}
+\usepackage{lscape}
+%% needed for doublespacing
+\usepackage{setspace}
+%% for sideways tables/figures
+\usepackage{rotating}
+%%better lists
+\usepackage{enumitem}           
+%% do not remember
+\usepackage{verbatim}
+%% multipage tables, might need to adjust caption width
+\usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} 
+%%\url{...} formatting
+\usepackage{xurl}                
+%% like \multicolumn in tables
+\usepackage{multirow} 
+%% better tables
+\usepackage{booktabs} 
+%%svgnames load additional default colours, alternatives: dvipsnames, x11names
+\usepackage{xcolor}   
+%% use siunitx
+\usepackage[
+separate-uncertainty,
+list-units=single,
+range-units=single,
+]{siunitx}%
+% \sisetup{list-units=single,range-units=single,}%
+%% mhchem
+\usepackage[version=3]{mhchem}  % \ce{...} for chem equations
 %% set font
-\usepackage{fontspec}\setmainfont[Mapping=tex-text]{Liberation Sans}
-% \usepackage{mathspec} %loads fontspec as well
-% \setmainfont{Liberation Sans}
-% \setmathrm{Liberation Sans}
-% \setmathfont(Digits,Latin){Liberation Sans}
-%% Allows in-line images
-\usepackage{wrapfig}
-%% caption style
-\usepackage[labelfont={bf,it,footnotesize},textfont={bf,footnotesize}]{caption}
+\usepackage{fontspec}
+\setmainfont[Mapping=tex-text]{Liberation Sans}
 %% date-time
 \usepackage[useregional=numeric]{datetime2} 
 \usepackage[british]{babel} 
 %% paragraph no indent, line skip instead
 \parindent=0em
 \parskip=\baselineskip
-%% paragraph indent, no line skip instead
-% \parindent=0em
-% \parskip=\baselineskip
 %% page number
 \pagestyle{plain} % yes
-%% \pagestyle{empty}   % no
+% \pagestyle{empty}   % no
+%% allow images
+\usepackage{graphicx}
 %% default path to figures
 \graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
-%%
+%% allows in-line images
+\usepackage{wrapfig}
+%% caption style
+\usepackage[labelfont={bf,it,footnotesize},textfont={bf,footnotesize}]{caption}
 %% biblatex 
 \usepackage[
 % backend=bibtex,
@@ -74,8 +91,12 @@ giveninits=true,
 \newenvironment{titleditemize}[1]{\paragraph{#1}\begin{itemize}}{\end{itemize}}
 %% new section formats, requires titlesec package
 \usepackage[compact]{titlesec} %[compact] for generic compactification
-%% next line temporary hack to be removed after titlesec upgrade
-\usepackage{etoolbox} \makeatletter \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{} \patchcmd{\ttlh@hang}{\noindent}{}{}{} \makeatother
+% %% next line temporary hack to be removed after titlesec upgrade
+% \usepackage{etoolbox} \makeatletter \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{} \patchcmd{\ttlh@hang}{\noindent}{}{}{} \makeatother
+%% math fonts and macros, and unicode symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{unicode-math}
 %% make mathfonts the same style as the surrounding text environment
 \DeclareMathVersion{sans}
 \SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}

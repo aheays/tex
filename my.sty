@@ -1,20 +1,17 @@
 \usepackage{expl3}             % access latex3 interface
 \usepackage{etoolbox}          % includes newrobustcmd
 \usepackage{graphicx}          % includegraphics
-\graphicspath{{.}{./figures/}{/home/heays/presentations_posters/common_figures/}{/home/heays/refs/}}
 \usepackage{xspace}            % fix missing space after command names
 \usepackage{amsmath}           % math fonts and macros
 \usepackage{amssymb}           % math symbols
 \usepackage{unicode-math}
-\usepackage{enumitem}           %better lists
-% Track changes, add comments. Options to diplay
-% footnotes/inline/margins/finalnew/finalold. Make notes with \note{}
-% \annote{}{} \add{} \remove{} \change{}{}
+%% Track changes, add comments. Options to diplay
+%% footnotes/inline/margins/finalnew/finalold. Make notes with \note{}
+%% \annote{}{} \add{} \remove{} \change{}{}
 % \usepackage[inline]{trackchanges} 
 % \usepackage{aas_macros}
-%% 
-%% mhchem
-\usepackage[version=3]{mhchem}  % \ce{...} for chem equations
+%% mhchem,  \ce{...} for chem equations
+\usepackage[version=3]{mhchem}
 %% define environments reaction and reaction* for numbered and
 %% non-numbered reactions
 \makeatletter
@@ -23,35 +20,6 @@
 {\begin{equation*}\ce{#1}\end{equation*}}
 \newcommand\myreaction{\@ifstar{\myreaction@nonumber}{\myreaction@}}
 \makeatother
-\usepackage{rotating}           % for sideways tables/figures
-\usepackage{verbatim}
-%% use numprint
-% \usepackage[warning,np]{numprint}
-% \npdecimalsign{\ensuremath{.}}
-% \npthousandsep{\,}
-% \npproductsign{\times}
-% \npfourdigitnosep
-%% use siunitx
-\usepackage[
-separate-uncertainty,
-list-units=single,
-range-units=single,
-]{siunitx}%
-% \sisetup{list-units=single,range-units=single,}%
-%%
-\usepackage{longtable}\setlength{\LTcapwidth}{0.9\textwidth} % multipage tables, might need to adjust caption width
-\usepackage{xurl}                %\url{...} formatting
-\usepackage{multirow} % like \multicolumn in tables
-\usepackage{booktabs} % better tables
-\usepackage{xcolor}   %svgnames load additional default colours, alternatives: dvipsnames, x11names
-%% biblatex, can't usepackage natbib and this
-%% \usepackage[<language options>]{babel}% Recommended
-%% \usepackage{csquotes}% Recommended
-%% \usepackage[backend=bibtex,style=numeric,natbib=true]{biblatex}
-%% \addbibresource{/home/heays/refs/anhrefs.bib}
-%% to explicitly set margins
-\usepackage{geometry}
-% \geometry{body={6.5in, 9.0in}, left=1.0in, top=1.0in}
 %% convenient command for centred figure
 \newrobustcmd{\myfigure}[2]{%
   \begin{figure}%
@@ -67,13 +35,6 @@ range-units=single,
     \caption{#2 \label{#3}}%
   \end{figure*}%
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% fonts -- to see what fonts are available to lualatex %%
-%% "luaotfload-tool --list="                            %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \setmainfont{stix2}
-% \setmathfont{stix2}
-% \setmathfont{xits-math}
 %%%%%%%%%%%%%%%%%%%%%
 %% commands I like %%
 %%%%%%%%%%%%%%%%%%%%%
@@ -86,10 +47,9 @@ range-units=single,
 \newrobustcmd{\mybf}[1]{\textbf{\boldmath{}#1}}
 %% comments
 \newrobustcmd{\mycommentcommand}{\color{blue}}
-
-\renewrobustcmd{\comment}[1]{{\mycommentcommand{}(Comment: #1)}}
-\newrobustcmd{\footcomment}[1]{\footnote{{\mycommentcommand{}Comment: #1}}}
-\newenvironment{itemizecomments}{\mycommentcommand{}\paragraph{Comments:}\begin{itemize}}{\end{itemize}}
+\newrobustcmd{\mycomment}[1]{{\mycommentcommand{}(Comment: #1)}}
+\newrobustcmd{\myfootcomment}[1]{\footnote{{\mycommentcommand{}Comment: #1}}}
+\newenvironment{myitemizecomments}{\mycommentcommand{}\paragraph{Comments:}\begin{itemize}}{\end{itemize}}
 %% changes
 % \newrobustcmd{\change}[1]{{\color{red}#1}}
 %% replacements
